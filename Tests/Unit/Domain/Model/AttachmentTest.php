@@ -51,22 +51,45 @@ class AttachmentTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getFileReturnsInitialValueForString() {
+	public function getIdentifierReturnsInitialValueForString() {
 		$this->assertSame(
 			'',
-			$this->subject->getFile()
+			$this->subject->getIdentifier()
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function setFileForStringSetsFile() {
-		$this->subject->setFile('Conceived at T3CON10');
+	public function setIdentifierForStringSetsIdentifier() {
+		$this->subject->setIdentifier('Conceived at T3CON10');
 
 		$this->assertAttributeEquals(
 			'Conceived at T3CON10',
-			'file',
+			'identifier',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getNameReturnsInitialValueForBoolean() {
+		$this->assertSame(
+			FALSE,
+			$this->subject->getName()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setNameForBooleanSetsName() {
+		$this->subject->setName(TRUE);
+
+		$this->assertAttributeEquals(
+			TRUE,
+			'name',
 			$this->subject
 		);
 	}

@@ -46,44 +46,16 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	protected function setUp() {
 
-		$this->testingFramework = new \Tx_Phpunit_Framework('tx_queuemailer');
-
-		// $uid = $this->testingFramework->createFrontEndPage(0, array(
-		// 	'title' => 'Test ' . date('c'),
-		// ));
-		// $this->testingFramework->createTemplate($uid, array(
-		// 	'title' => 'Test ' . date('c'),
-		// 	'include_static_file' => 'EXT:queue_mailer/Configuration/TypoScript/',
-		// 	'root' => '1',
-		// 	'clear' => '3',
-		// 	// 'config' => 'test = 1',
-		// ));
-		// $this->testingFramework->createFakeFrontEnd($uid);
-		$this->testingFramework->createFakeFrontEnd(0);
-
+		// $this->testingFramework = new \Tx_Phpunit_Framework('tx_queuemailer');
+		// $this->testingFramework->createFakeFrontEnd(0);
 
 		$this->subject = new \MONOGON\QueueMailer\Mail\MailMessage();
 
-		// $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$this->inject($this->subject, 'objectManager', $objectManager);
 
-		// $configurationManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-
-
 
 		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-
-		// $configurationManager = new \TYPO3\CMS\Extbase\Configuration\ConfigurationManager();
-		// $this->inject($configurationManager, 'objectManager', $objectManager);
-
-		// $environmentServiceMock = $this->getMock('TYPO3\\CMS\\Extbase\\Service\\EnvironmentService', array('isEnvironmentInFrontendMode')); // , array(), '', FALSE
-		// $environmentServiceMock
-		// 	->method('isEnvironmentInFrontendMode')
-		// 	->will($this->returnValue(TRUE));
-
-		// $this->inject($configurationManager, 'environmentService', $environmentServiceMock);
-		// $configurationManager->initializeObject();
 
 		$configurationManager->setConfiguration(array(
 			'view.' => array(
@@ -94,12 +66,10 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		));
 
 		$this->inject($this->subject, 'configurationManager', $configurationManager);
-
-
 	}
 
 	protected function tearDown() {
-		$this->testingFramework->cleanUp();
+		// $this->testingFramework->cleanUp();
 		unset($this->subject, $this->testingFramework);
 	}
 
@@ -108,7 +78,7 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setTemplateBodyPlainText (){
 		$this->subject->setTemplateBody('Example', array(), 'text');
-		$body = $this->subject->toString();
+		$this->assertRegExp('/Hello/', $this->subject->getBody());
 	}
 
 	/**
@@ -116,7 +86,8 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setTemplateBodyHtml (){
 		$this->subject->setTemplateBody('Example', array(), 'html');
-		$body = $this->subject->toString();
+		$children = $this->subject->getChildren();
+		$this->assertRegExp('/<html>/', $children[0]->getBody());
 	}
 
 	/**
@@ -124,6 +95,18 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setTemplateBodyAuto (){
 		$this->subject->setTemplateBody('Example');
-		$body = $this->subject->toString();
+		$this->assertRegExp('/Hello/', $this->subject->getBody());
+		$children = $this->subject->getChildren();
+		$this->assertRegExp('/<html>/', $children[0]->getBody());
+	}
+
+	/**
+	 * @test
+	 */
+	public function setTemplateVariables (){
+		$variables = array('test' => 'Success');
+		$this->subject->setTemplateBody('Example', $variables, 'text');
+		$this->assertSame($variables, $this->subject->getVariables());
+		$this->assertRegExp('/Success/', $this->subject->getBody());
 	}
 }

@@ -95,14 +95,6 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $isDummyRecord = FALSE;
 
 	/**
-	 * Attachments
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MONOGON\QueueMailer\Domain\Model\Attachment>
-	 * @cascade remove
-	 */
-	protected $attachments = NULL;
-
-	/**
 	 * failedRecipients
 	 *
 	 * @var string
@@ -115,6 +107,28 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var integer
 	 */
 	protected $sent = 0;
+
+	/**
+	 * Attachments
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MONOGON\QueueMailer\Domain\Model\Attachment>
+	 * @cascade remove
+	 */
+	protected $attachments = NULL;
+
+	/**
+	 * variables
+	 *
+	 * @var string
+	 */
+	protected $variables = '';
+
+	/**
+	 * variablesKeyHash
+	 *
+	 * @var string
+	 */
+	protected $variablesKeyHash = '';
 
 	/**
 	 * __construct
@@ -393,4 +407,53 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->sent = $sent;
 	}
 
+	/**
+	 * Returns the variables
+	 *
+	 * @return string $variables
+	 */
+	public function getVariables() {
+		return unserialize($this->variables);
+	}
+
+	/**
+	 * Sets the variables
+	 *
+	 * @param string $variables
+	 * @return void
+	 */
+	public function setVariables($variables) {
+		$this->variables = empty($variables) ? '': serialize($variables);
+		$this->updateVariablesKeyHash();
+	}
+
+	/**
+	 * Returns the variablesKeyHash
+	 *
+	 * @return string $variablesKeyHash
+	 */
+	public function getVariablesKeyHash() {
+		return $this->variablesKeyHash;
+	}
+
+	/**
+	 * Sets the variablesKeyHash
+	 *
+	 * @param string $variablesKeyHash
+	 * @return void
+	 */
+	public function setVariablesKeyHash($variablesKeyHash = NULL) {
+		// $this->variablesKeyHash = $variablesKeyHash;
+		$this->updateVariablesKeyHash();
+	}
+
+	protected function updateVariablesKeyHash (){
+		$this->variablesKeyHash = '';
+		$variables = $this->getVariables();
+		if (is_array($variables) && count($variables)){
+			$keys = array_keys($variables);
+			sort($keys);
+			$this->variablesKeyHash = md5(join(',', $keys));
+		}
+	}
 }

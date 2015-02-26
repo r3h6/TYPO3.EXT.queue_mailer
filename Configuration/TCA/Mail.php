@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $GLOBALS['TCA']['tx_queuemailer_domain_model_mail'] = array(
 	'ctrl' => $GLOBALS['TCA']['tx_queuemailer_domain_model_mail']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'mail_subject, mail_to, mail_cc, mail_bcc, mail_from, mail_reply_to, mail_message, mail_date, is_dummy_record, failed_recipients, sent, attachments',
+		'showRecordFieldList' => 'mail_subject, mail_to, mail_cc, mail_bcc, mail_from, mail_reply_to, mail_message, mail_date, failed_recipients, sent, variables, variables_key_hash, is_dummy_record, attachments',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'mail_subject, mail_to, mail_cc, mail_bcc, mail_from, mail_reply_to, mail_message, mail_date, is_dummy_record, failed_recipients, sent, attachments, '),
+		'1' => array('showitem' => 'mail_subject, mail_to, mail_cc, mail_bcc, mail_from, mail_reply_to, mail_message, mail_date, failed_recipients, sent, variables, variables_key_hash, is_dummy_record, attachments, '),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -94,14 +94,6 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_mail'] = array(
 				'default' => time()
 			),
 		),
-		'is_dummy_record' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.is_dummy_record',
-			'config' => array(
-				'type' => 'check',
-				'default' => 0
-			)
-		),
 		'failed_recipients' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.failed_recipients',
@@ -119,6 +111,33 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_mail'] = array(
 				'type' => 'input',
 				'size' => 4,
 				'eval' => 'int'
+			)
+		),
+		'variables' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.variables',
+			'config' => array(
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim'
+			)
+		),
+		'variables_key_hash' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.variables_key_hash',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'is_dummy_record' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.is_dummy_record',
+			'config' => array(
+				'type' => 'check',
+				'default' => 0
 			)
 		),
 		'attachments' => array(
@@ -139,7 +158,7 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_mail'] = array(
 			),
 
 		),
-
+		
 	),
 );
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

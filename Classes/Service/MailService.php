@@ -64,21 +64,20 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 		} else {
 			$message = $arg;
 		}
-
 		if ($message instanceof \TYPO3\CMS\Core\Mail\MailMessage){
 			if (!$message->isSent()){
 				try {
 					return $message->send() ? TRUE: FALSE;
 				} catch (Exception $exception){
-
+					$this->getLogger()->error($exception->getMessage());
 				}
 			}
 		}
 		return FALSE;
 	}
 
-	public function log (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL, $failedRecipients = NULL){
-		$this->mailRepository->addMessage($message, $sent, $failedRecipients);
+	public function log (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL){
+		$this->mailRepository->addMessage($message, $sent);
 	}
 
 	public function queue ($arg){
@@ -92,5 +91,9 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 			return $this->pendingMessageRepository->push($message);
 		}
 		return FALSE;
+	}
+
+	protected function getLogger (){
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
 	}
 }

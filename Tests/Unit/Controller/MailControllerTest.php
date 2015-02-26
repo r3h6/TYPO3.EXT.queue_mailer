@@ -4,7 +4,7 @@ namespace MONOGON\QueueMailer\Tests\Unit\Controller;
  *  Copyright notice
  *
  *  (c) 2015 R3 H6 <r3h6@outlook.com>
- *
+ *  			
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

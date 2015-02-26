@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2015-02-24T23:22:21Z" product-name="queue_mailer">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-02-26T22:38:42Z" product-name="queue_mailer">
 		<header/>
 		<body>
 			<trans-unit id="tx_queuemailer_domain_model_mail">
@@ -30,14 +30,20 @@
 			<trans-unit id="tx_queuemailer_domain_model_mail.mail_date">
 				<source>Mail Date</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.is_dummy_record">
-				<source>Is Dummy Record</source>
-			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_mail.failed_recipients">
 				<source>Failed Recipients</source>
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_mail.sent">
 				<source>Sent</source>
+			</trans-unit>
+			<trans-unit id="tx_queuemailer_domain_model_mail.variables">
+				<source>Variables</source>
+			</trans-unit>
+			<trans-unit id="tx_queuemailer_domain_model_mail.variables_key_hash">
+				<source>Variables Key Hash</source>
+			</trans-unit>
+			<trans-unit id="tx_queuemailer_domain_model_mail.is_dummy_record">
+				<source>Is Dummy Record</source>
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_mail.attachments">
 				<source>Attachments</source>
@@ -45,8 +51,11 @@
 			<trans-unit id="tx_queuemailer_domain_model_attachment">
 				<source>Attachment</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_attachment.file">
-				<source>File</source>
+			<trans-unit id="tx_queuemailer_domain_model_attachment.identifier">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="tx_queuemailer_domain_model_attachment.name">
+				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_attachment.size">
 				<source>Size</source>
@@ -68,6 +77,9 @@
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_pendingmessage.is_dummy_record">
 				<source>Is Dummy Record</source>
+			</trans-unit>
+			<trans-unit id="tx_queuemailer_domain_model_attachment.file">
+				<source>File</source>
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_queuedmailmessage">
 				<source>Queued Mail Message</source>

@@ -2,7 +2,6 @@
 namespace MONOGON\QueueMailer\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 /***************************************************************
  *
  *  Copyright notice

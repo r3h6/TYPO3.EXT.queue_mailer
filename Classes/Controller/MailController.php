@@ -1,7 +1,6 @@
 <?php
 namespace MONOGON\QueueMailer\Controller;
 
-
 /***************************************************************
  *
  *  Copyright notice

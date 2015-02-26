@@ -236,29 +236,6 @@ class MailTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getIsDummyRecordReturnsInitialValueForBoolean() {
-		$this->assertSame(
-			FALSE,
-			$this->subject->getIsDummyRecord()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setIsDummyRecordForBooleanSetsIsDummyRecord() {
-		$this->subject->setIsDummyRecord(TRUE);
-
-		$this->assertAttributeEquals(
-			TRUE,
-			'isDummyRecord',
-			$this->subject
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function getFailedRecipientsReturnsInitialValueForString() {
 		$this->assertSame(
 			'',
@@ -298,6 +275,75 @@ class MailTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertAttributeEquals(
 			12,
 			'sent',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getVariablesReturnsInitialValueForString() {
+		$this->assertSame(
+			'',
+			$this->subject->getVariables()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setVariablesForStringSetsVariables() {
+		$this->subject->setVariables('Conceived at T3CON10');
+
+		$this->assertAttributeEquals(
+			'Conceived at T3CON10',
+			'variables',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getVariablesKeyHashReturnsInitialValueForString() {
+		$this->assertSame(
+			'',
+			$this->subject->getVariablesKeyHash()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setVariablesKeyHashForStringSetsVariablesKeyHash() {
+		$this->subject->setVariablesKeyHash('Conceived at T3CON10');
+
+		$this->assertAttributeEquals(
+			'Conceived at T3CON10',
+			'variablesKeyHash',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getIsDummyRecordReturnsInitialValueForBoolean() {
+		$this->assertSame(
+			FALSE,
+			$this->subject->getIsDummyRecord()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setIsDummyRecordForBooleanSetsIsDummyRecord() {
+		$this->subject->setIsDummyRecord(TRUE);
+
+		$this->assertAttributeEquals(
+			TRUE,
+			'isDummyRecord',
 			$this->subject
 		);
 	}

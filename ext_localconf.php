@@ -10,10 +10,3 @@ if (\MONOGON\QueueMailer\Configuration\ExtConf::get('queueAllMessages') || \MONO
 	 'className' => 'MONOGON\\QueueMailer\\Mail\\Mailer'
 	);
 }
-
-// $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['MONOGON\\QueueMailer\\Command\\QueueCommand'] = array(
-// 	'extension' => $_EXTKEY,
-// 	'title' => 'Mail Queue',
-// 	'description' => 'Sending queued mail messages.',
-// );
-//

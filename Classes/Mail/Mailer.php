@@ -43,7 +43,6 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 	 * @return integer
 	 */
 	public function send(Swift_Mime_Message $message, &$failedRecipients = null){
-
 		if (ExtConf::get('queueAllMessages')){
 			return $this->queue($message, $failedRecipients) ? 1: 0;
 		}
@@ -54,8 +53,9 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 			$sent = 0;
 			$this->getLogger()->error($exception->getMessage());
 		}
+
 		if (ExtConf::get('logAllMessages') || ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage)){
-			MailUtility::log($message, $sent, $failedRecipients);
+			MailUtility::log($message, $sent);
 		}
 
 		return $sent;

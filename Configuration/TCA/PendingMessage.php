@@ -45,7 +45,7 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_pendingmessage'] = array(
 				'default' => 0
 			)
 		),
-
+		
 	),
 );
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

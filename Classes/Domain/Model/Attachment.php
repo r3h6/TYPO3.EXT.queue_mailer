@@ -36,7 +36,7 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @var string
 	 */
-	protected $file = '';
+	protected $identifier = '';
 
 	/**
 	 * Size (bytes)
@@ -60,23 +60,11 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $isDummyRecord = FALSE;
 
 	/**
-	 * Returns the file
+	 * name
 	 *
-	 * @return string $file
+	 * @var boolean
 	 */
-	public function getFile() {
-		return $this->file;
-	}
-
-	/**
-	 * Sets the file
-	 *
-	 * @param string $file
-	 * @return void
-	 */
-	public function setFile($file) {
-		$this->file = $file;
-	}
+	protected $name = FALSE;
 
 	/**
 	 * Returns the size
@@ -142,6 +130,53 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function isIsDummyRecord() {
 		return $this->isDummyRecord;
+	}
+
+	/**
+	 * Returns the identifier
+	 *
+	 * @return string identifier
+	 */
+	public function getIdentifier() {
+		return $this->identifier;
+	}
+
+	/**
+	 * Sets the identifier
+	 *
+	 * @param string $identifier
+	 * @return string identifier
+	 */
+	public function setIdentifier($identifier) {
+		$this->identifier = $identifier;
+	}
+
+	/**
+	 * Returns the name
+	 *
+	 * @return boolean $name
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * Sets the name
+	 *
+	 * @param boolean $name
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	/**
+	 * Returns the boolean state of name
+	 *
+	 * @return boolean
+	 */
+	public function isName() {
+		return $this->name;
 	}
 
 }

@@ -51,9 +51,9 @@ class PendingMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getMessageReturnsInitialValue() {
+	public function getMessageReturnsInitialValueForString() {
 		$this->assertSame(
-			NULL,
+			'',
 			$this->subject->getMessage()
 		);
 	}
@@ -62,11 +62,10 @@ class PendingMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setMessageForStringSetsMessage() {
-		$messageFixture = new \TYPO3\CMS\Core\Mail\MailMessage();
-		$this->subject->setMessage($messageFixture);
+		$this->subject->setMessage('Conceived at T3CON10');
 
 		$this->assertAttributeEquals(
-			serialize($messageFixture),
+			'Conceived at T3CON10',
 			'message',
 			$this->subject
 		);
@@ -92,6 +91,29 @@ class PendingMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertAttributeEquals(
 			$dateTimeFixture,
 			'scheduled',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getIsDummyRecordReturnsInitialValueForBoolean() {
+		$this->assertSame(
+			FALSE,
+			$this->subject->getIsDummyRecord()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setIsDummyRecordForBooleanSetsIsDummyRecord() {
+		$this->subject->setIsDummyRecord(TRUE);
+
+		$this->assertAttributeEquals(
+			TRUE,
+			'isDummyRecord',
 			$this->subject
 		);
 	}

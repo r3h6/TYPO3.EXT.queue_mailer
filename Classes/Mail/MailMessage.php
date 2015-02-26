@@ -60,17 +60,19 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 		$this->mailer = GeneralUtility::makeInstance('MONOGON\\QueueMailer\\Mail\\Mailer');
 	}
 
-	// /**
-	//  * [send description]
-	//  * @return int Number of accepted receivers.
-	//  */
-	// public function send ($forceSending = FALSE){
-	// 	if (!$forceSending && \MONOGON\QueueMailer\Configuration\ExtConf::get('queueAllMessages')){
-	// 		return $this->queue() ? 1: 0;
-	// 	} else {
-	// 		return parent::send();
-	// 	}
-	// }
+	/**
+	 * Sends the message.
+	 * Must overwrite this method for calling our initializeMailer method!
+	 *
+	 * @return integer the number of recipients who were accepted for delivery
+	 * @author Karsten Dambekalns <karsten@typo3.org>
+	 */
+	public function send() {
+		$this->initializeMailer();
+		$this->sent = TRUE;
+		$this->getHeaders()->addTextHeader('X-Mailer', $this->mailerHeader);
+		return $this->mailer->send($this, $this->failedRecipients);
+	}
 
 	public function queue (){
 		$this->initializeMailer();
@@ -78,7 +80,12 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 		return $this->mailer->queue($this, $this->failedRecipients);
 	}
 
+	public function getVariables (){
+		return $this->variables;
+	}
+
 	public function setTemplateBody ($templateName, $variables = array(), $format = NULL){
+		$this->variables = $variables;
 		if ($format === NULL || $format === 'text'){
 			try {
 				$content = $this->renderTemplate($templateName, $variables, 'txt');

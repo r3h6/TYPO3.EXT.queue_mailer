@@ -121,16 +121,6 @@
                             "propertyDescription": "",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "isDummyRecord",
-                            "propertyType": "Boolean",
-                            "uid": "809382023047"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": false,
-                            "propertyIsRequired": false,
                             "propertyName": "failedRecipients",
                             "propertyType": "Text",
                             "uid": "813469391779"
@@ -144,6 +134,36 @@
                             "propertyName": "sent",
                             "propertyType": "Integer",
                             "uid": "1340385287089"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "variables",
+                            "propertyType": "Text",
+                            "uid": "922965501131"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "variablesKeyHash",
+                            "propertyType": "String",
+                            "uid": "1225773968254"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "isDummyRecord",
+                            "propertyType": "Boolean",
+                            "uid": "809382023047"
                         }
                     ]
                 },
@@ -204,9 +224,19 @@
                             "propertyDescription": "File",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "file",
+                            "propertyName": "identifier",
                             "propertyType": "String",
                             "uid": "158696146068"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "name",
+                            "propertyType": "Boolean",
+                            "uid": "806114085599"
                         },
                         {
                             "allowedFileTypes": "",
@@ -369,7 +399,7 @@
         }
     ],
     "log": {
-        "last_modified": "2015-02-24 11:22",
+        "last_modified": "2015-02-26 10:38",
         "extension_builder_version": "6.2.0",
         "be_user": " (1)"
     }

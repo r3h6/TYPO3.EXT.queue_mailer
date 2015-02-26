@@ -39,6 +39,10 @@ class Converter {
 		$mail->setMailFrom(Converter::emailArray2emailString($message->getFrom()));
 		$mail->setMailTo(Converter::emailArray2emailString($message->getTo()));
 
+		if ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage){
+			$mail->setVariables($message->getVariables());
+		}
+
 		return $mail;
 	}
 
