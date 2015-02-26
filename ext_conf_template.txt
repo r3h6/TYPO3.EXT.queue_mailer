@@ -1,0 +1,5 @@
+# cat=queue_mailer/enable/10; type=boolean; label= Enable log for messages: Extends default mailer with xclass.
+xclassMailMessage = 0
+
+# cat=queue_mailer/enable/10; type=boolean; label= Queue all messages: Only if above options is checked.
+queueAllMessages = 0

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-02-20T23:32:33Z" product-name="queue_mailer">
+		<header/>
+		<body>
+			<trans-unit id="mail_subject.description">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="mail_to.description">
+				<source>To</source>
+			</trans-unit>
+			<trans-unit id="mail_cc.description">
+				<source>CC</source>
+			</trans-unit>
+			<trans-unit id="mail_bcc.description">
+				<source>BCC</source>
+			</trans-unit>
+			<trans-unit id="mail_from.description">
+				<source>From</source>
+			</trans-unit>
+			<trans-unit id="mail_reply_to.description">
+				<source>Reply to</source>
+			</trans-unit>
+			<trans-unit id="mail_message.description">
+				<source>message</source>
+			</trans-unit>
+			<trans-unit id="mail_date.description">
+				<source>Send time</source>
+			</trans-unit>
+			<trans-unit id="is_dummy_record.description">
+				<source>isDummyRecord</source>
+			</trans-unit>
+			<trans-unit id="attachments.description">
+				<source>Attachments</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

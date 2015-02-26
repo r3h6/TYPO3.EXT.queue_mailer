@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-02-24T23:22:21Z" product-name="queue_mailer">
+		<header/>
+		<body>
+			<trans-unit id="message.description">
+				<source>Message</source>
+			</trans-unit>
+			<trans-unit id="scheduled.description">
+				<source>Scheduled time</source>
+			</trans-unit>
+			<trans-unit id="is_dummy_record.description">
+				<source>isDummyRecord</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

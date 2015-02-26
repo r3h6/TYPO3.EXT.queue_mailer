@@ -1,0 +1,376 @@
+{
+    "modules": [
+        {
+            "config": {
+                "position": [
+                    317,
+                    73
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": true,
+                    "_default1_show": true,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": [
+
+                    ]
+                },
+                "name": "Mail",
+                "objectsettings": {
+                    "addDeletedField": false,
+                    "addHiddenField": false,
+                    "addStarttimeEndtimeFields": false,
+                    "aggregateRoot": true,
+                    "categorizable": false,
+                    "description": "Mail",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "1073926457424"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Subject",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailSubject",
+                            "propertyType": "String",
+                            "uid": "182084716376"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "To",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailTo",
+                            "propertyType": "Text",
+                            "uid": "945076518582"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "CC",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailCc",
+                            "propertyType": "Text",
+                            "uid": "1339435074114"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "BCC",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailBcc",
+                            "propertyType": "Text",
+                            "uid": "365374650453"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "From",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailFrom",
+                            "propertyType": "String",
+                            "uid": "867008298826"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Reply to",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailReplyTo",
+                            "propertyType": "String",
+                            "uid": "424508520704"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "message",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailMessage",
+                            "propertyType": "Text",
+                            "uid": "545756609495"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Send time",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "mailDate",
+                            "propertyType": "Date",
+                            "uid": "1359140310089"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "isDummyRecord",
+                            "propertyType": "Boolean",
+                            "uid": "809382023047"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "failedRecipients",
+                            "propertyType": "Text",
+                            "uid": "813469391779"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "sent",
+                            "propertyType": "Integer",
+                            "uid": "1340385287089"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": [
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": false,
+                            "relationDescription": "Attachments",
+                            "relationName": "attachments",
+                            "relationType": "zeroToMany",
+                            "relationWire": "[wired]",
+                            "uid": "686922883177"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "config": {
+                "position": [
+                    559,
+                    73
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": [
+
+                    ]
+                },
+                "name": "Attachment",
+                "objectsettings": {
+                    "addDeletedField": false,
+                    "addHiddenField": false,
+                    "addStarttimeEndtimeFields": false,
+                    "aggregateRoot": false,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "236363497790"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "File",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "file",
+                            "propertyType": "String",
+                            "uid": "158696146068"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Size (bytes)",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "size",
+                            "propertyType": "Integer",
+                            "uid": "810796588020"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Data",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "data",
+                            "propertyType": "Text",
+                            "uid": "759216169149"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "isDummyRecord",
+                            "propertyType": "Boolean",
+                            "uid": "1035378065838"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": [
+
+                    ]
+                }
+            }
+        },
+        {
+            "config": {
+                "position": [
+                    21,
+                    73
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": [
+
+                    ]
+                },
+                "name": "PendingMessage",
+                "objectsettings": {
+                    "addDeletedField": false,
+                    "addHiddenField": false,
+                    "addStarttimeEndtimeFields": false,
+                    "aggregateRoot": true,
+                    "categorizable": false,
+                    "description": "Queue",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "276393509380"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Message",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "message",
+                            "propertyType": "Text",
+                            "uid": "1187540793083"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Scheduled time",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "scheduled",
+                            "propertyType": "DateTime",
+                            "uid": "1391685042969"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "isDummyRecord",
+                            "propertyType": "Boolean",
+                            "uid": "1013774801893"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": [
+
+                    ]
+                }
+            }
+        }
+    ],
+    "properties": {
+        "backendModules": [
+
+        ],
+        "description": "Provides an API for sending template based e-mails.",
+        "emConf": {
+            "category": "services",
+            "custom_category": "",
+            "dependsOn": "typo3 => 6.2\n",
+            "disableLocalization": true,
+            "disableVersioning": true,
+            "sourceLanguage": "en",
+            "state": "beta",
+            "targetVersion": "6.2",
+            "version": "1.0.0"
+        },
+        "extensionKey": "queue_mailer",
+        "name": "Queue Mailer",
+        "originalExtensionKey": "queue_mailer",
+        "persons": [
+            {
+                "company": "",
+                "email": "r3h6@outlook.com",
+                "name": "R3 H6",
+                "role": "Developer"
+            }
+        ],
+        "plugins": [
+
+        ],
+        "vendorName": "MONOGON"
+    },
+    "wires": [
+        {
+            "src": {
+                "moduleId": 0,
+                "terminal": "relationWire_0",
+                "uid": "686922883177"
+            },
+            "tgt": {
+                "moduleId": 1,
+                "terminal": "SOURCES",
+                "uid": "236363497790"
+            }
+        }
+    ],
+    "log": {
+        "last_modified": "2015-02-24 11:22",
+        "extension_builder_version": "6.2.0",
+        "be_user": " (1)"
+    }
+}
