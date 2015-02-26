@@ -5,9 +5,9 @@ if (!defined('TYPO3_MODE')) {
 
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
-if (\MONOGON\QueueMailer\Configuration\ExtConf::get('xclassMailMessage')){
-	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Core\\Mail\\MailMessage'] = array(
-	 'className' => 'MONOGON\\QueueMailer\\Mail\\MailMessage'
+if (\MONOGON\QueueMailer\Configuration\ExtConf::get('queueAllMessages') || \MONOGON\QueueMailer\Configuration\ExtConf::get('logAllMessages')){
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Core\\Mail\\Mailer'] = array(
+	 'className' => 'MONOGON\\QueueMailer\\Mail\\Mailer'
 	);
 }
 

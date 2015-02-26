@@ -42,6 +42,7 @@ class QueueCommandControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		// $this->subject = $this->getMock('MONOGON\\QueueMailer\\Command\\QueueCommandController', array(), array(), '', FALSE);
 
 		$this->subject = new \MONOGON\QueueMailer\Command\QueueCommandController();
+		// $this->subject = $this->getMock('MONOGON\\QueueMailer\\Command\\QueueCommandController', array(), array(), '', FALSE);
 
 		$this->pendingMessageRepositoryMock = $this->getMock('MONOGON\\QueueMailer\\Domain\\Repository\\PendingMessageRepository', array('pop'), array(), '', FALSE);
 

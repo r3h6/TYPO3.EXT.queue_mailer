@@ -46,7 +46,7 @@ class PendingMessageRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	protected $testingFramework = NULL;
 
 	protected function setUp() {
-		$this->testingFramework = new Tx_Phpunit_Framework('tx_maillog');
+		$this->testingFramework = new Tx_Phpunit_Framework('tx_queuemailer');
 
 		$this->subject = $this->getMock('MONOGON\\QueueMailer\\Domain\\Repository\\PendingMessageRepository', array('add', 'remove', 'createQuery'), array(''), '', FALSE);
 
@@ -117,9 +117,9 @@ class PendingMessageRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			'message' => serialize($this->createMessage()),
 		);
 
-		$this->testingFramework->createRecord('tx_maillog_domain_model_pendingmessage', $record);
-		$this->testingFramework->createRecord('tx_maillog_domain_model_pendingmessage', $record);
-		$this->testingFramework->createRecord('tx_maillog_domain_model_pendingmessage', $record);
+		$this->testingFramework->createRecord('tx_queuemailer_domain_model_pendingmessage', $record);
+		$this->testingFramework->createRecord('tx_queuemailer_domain_model_pendingmessage', $record);
+		$this->testingFramework->createRecord('tx_queuemailer_domain_model_pendingmessage', $record);
 
 
 		$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();

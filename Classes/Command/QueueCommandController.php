@@ -27,6 +27,7 @@ namespace MONOGON\QueueMailer\Command;
  ***************************************************************/
 
 use \Exception;
+use \MONOGON\QueueMailer\Configuration\ExtConf;
 
 /**
  * QueueCommandController
@@ -48,17 +49,19 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 	 */
 	public function sendCommand ($limit = 20){
 		try {
-			$this->getLogger()->info(TYPO3_cliMode); exit;
+			// $this->getLogger()->info(TYPO3_cliMode); exit;
 			$messages = $this->pendingMessageRepository->pop($limit);
+			$queueAllMessages = ExtConf::get('queueAllMessages');
+			ExtConf::set('queueAllMessages', '0');
 			foreach ($messages as $message){
 				// if ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage){
 				// 	$message->send(TRUE);
 				// } else {
 				// 	$message->send();
 				// }
-
 				$message->send();
 			}
+			ExtConf::set('queueAllMessages', $queueAllMessages);
 		} catch (Exception $exception){
 			$this->getLogger()->error($exception->getMessage());
 			throw $exception;

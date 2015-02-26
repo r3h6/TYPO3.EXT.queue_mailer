@@ -36,11 +36,15 @@ class MailUtility {
 
 	protected static $instance;
 
-	protected static function getInstance (){
+	public static function getInstance (){
 		if (!static::$instance){
 			static::$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')->get('MONOGON\\QueueMailer\\Service\\MailService');
 		}
 		return static::$instance;
+	}
+
+	public static function setMockInstance(\PHPUnit_Framework_MockObject_MockObject $mock){
+		static::$instance = $mock;
 	}
 
 	public static function __callStatic($method, $args){

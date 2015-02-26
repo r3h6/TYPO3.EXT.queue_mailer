@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_maillog_domain_model_mail']['ctrl'],
+$GLOBALS['TCA']['tx_queuemailer_domain_model_mail'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_queuemailer_domain_model_mail']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'mail_subject, mail_to, mail_cc, mail_bcc, mail_from, mail_reply_to, mail_message, mail_date, is_dummy_record, failed_recipients, sent, attachments',
 	),
@@ -18,7 +18,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 
 		'mail_subject' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_subject',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_subject',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -27,7 +27,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'mail_to' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_to',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_to',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -37,7 +37,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'mail_cc' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_cc',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_cc',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -47,7 +47,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'mail_bcc' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_bcc',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_bcc',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -57,7 +57,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'mail_from' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_from',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_from',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -66,7 +66,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'mail_reply_to' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_reply_to',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_reply_to',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -75,7 +75,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'mail_message' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_message',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_message',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -85,7 +85,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'mail_date' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.mail_date',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.mail_date',
 			'config' => array(
 				'type' => 'input',
 				'size' => 7,
@@ -96,7 +96,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'is_dummy_record' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.is_dummy_record',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.is_dummy_record',
 			'config' => array(
 				'type' => 'check',
 				'default' => 0
@@ -104,7 +104,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'failed_recipients' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.failed_recipients',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.failed_recipients',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -114,7 +114,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'sent' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.sent',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.sent',
 			'config' => array(
 				'type' => 'input',
 				'size' => 4,
@@ -123,10 +123,10 @@ $GLOBALS['TCA']['tx_maillog_domain_model_mail'] = array(
 		),
 		'attachments' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_mail.attachments',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail.attachments',
 			'config' => array(
 				'type' => 'inline',
-				'foreign_table' => 'tx_maillog_domain_model_attachment',
+				'foreign_table' => 'tx_queuemailer_domain_model_attachment',
 				'foreign_field' => 'mail',
 				'maxitems'      => 9999,
 				'appearance' => array(

@@ -29,6 +29,8 @@ namespace MONOGON\QueueMailer\Mail;
 use Swift_Transport;
 use Swift_Mime_Message;
 use MONOGON\QueueMailer\Utility\MailUtility;
+use MONOGON\QueueMailer\Configuration\ExtConf;
+use Exception;
 
 /**
  * Mailer
@@ -42,20 +44,20 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 	 */
 	public function send(Swift_Mime_Message $message, &$failedRecipients = null){
 
-
-
-
-		if (\MONOGON\QueueMailer\Configuration\ExtConf::get('queueAllMessages')){
-			return $this->queue($message, $failedRecipients);
+		if (ExtConf::get('queueAllMessages')){
+			return $this->queue($message, $failedRecipients) ? 1: 0;
 		}
 
-
-		// try {
+		try {
 			$sent = parent::send($message, $failedRecipients);
-		// } catch (Exception $exception){
-		// 	$this->getLogger()->error($exception->message());
-		// }
-		MailUtility::log($message, $sent, $failedRecipients);
+		} catch (Exception $exception){
+			$sent = 0;
+			$this->getLogger()->error($exception->getMessage());
+		}
+		if (ExtConf::get('logAllMessages') || ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage)){
+			MailUtility::log($message, $sent, $failedRecipients);
+		}
+
 		return $sent;
 	}
 
@@ -63,7 +65,7 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 		return MailUtility::queue($message);
 	}
 
-	// protected function getLogger (){
-	// 	return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
-	// }
+	protected function getLogger (){
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+	}
 }

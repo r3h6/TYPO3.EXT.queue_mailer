@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_maillog_domain_model_attachment'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_maillog_domain_model_attachment']['ctrl'],
+$GLOBALS['TCA']['tx_queuemailer_domain_model_attachment'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_queuemailer_domain_model_attachment']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'file, size, data, is_dummy_record',
 	),
@@ -18,7 +18,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_attachment'] = array(
 
 		'file' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_attachment.file',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_attachment.file',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -27,7 +27,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_attachment'] = array(
 		),
 		'size' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_attachment.size',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_attachment.size',
 			'config' => array(
 				'type' => 'input',
 				'size' => 4,
@@ -36,7 +36,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_attachment'] = array(
 		),
 		'data' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_attachment.data',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_attachment.data',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -46,7 +46,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_attachment'] = array(
 		),
 		'is_dummy_record' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_attachment.is_dummy_record',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_attachment.is_dummy_record',
 			'config' => array(
 				'type' => 'check',
 				'default' => 0

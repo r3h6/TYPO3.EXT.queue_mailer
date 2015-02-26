@@ -47,10 +47,11 @@ class ExtConf {
 
 	public static function get ($key){
 		$extConf = self::makeInstance();
-		if (method_exists($extConf, $key)){
-			return $extConf->$key();
-		}
 		return $extConf->_get($key);
+	}
+
+	public static function set ($key, $value){
+		self::makeInstance()->_set($key, $value);
 	}
 
 	private static function makeInstance (){
@@ -62,7 +63,7 @@ class ExtConf {
 
 	private function __construct() {
 		if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXT_KEY])) {
-			$this->configuration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXT_KEY]);
+			$this->configuration = (array) unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXT_KEY]);
 		}
 	}
 
@@ -76,6 +77,10 @@ class ExtConf {
 		} else {
 			return NULL;
 		}
+	}
+
+	private function _set ($key, $value){
+		$this->configuration[$key] = $value;
 	}
 }
 

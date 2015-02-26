@@ -46,7 +46,7 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	protected function setUp() {
 
-		$this->testingFramework = new \Tx_Phpunit_Framework('tx_maillog');
+		$this->testingFramework = new \Tx_Phpunit_Framework('tx_queuemailer');
 
 		// $uid = $this->testingFramework->createFrontEndPage(0, array(
 		// 	'title' => 'Test ' . date('c'),

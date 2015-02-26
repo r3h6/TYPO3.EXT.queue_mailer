@@ -1,9 +1,9 @@
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
 #
-# Table structure for table 'tx_maillog_domain_model_mail'
+# Table structure for table 'tx_queuemailer_domain_model_mail'
 #
-CREATE TABLE tx_maillog_domain_model_mail (
+CREATE TABLE tx_queuemailer_domain_model_mail (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -32,9 +32,9 @@ CREATE TABLE tx_maillog_domain_model_mail (
 );
 
 #
-# Table structure for table 'tx_maillog_domain_model_attachment'
+# Table structure for table 'tx_queuemailer_domain_model_attachment'
 #
-CREATE TABLE tx_maillog_domain_model_attachment (
+CREATE TABLE tx_queuemailer_domain_model_attachment (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -57,9 +57,9 @@ CREATE TABLE tx_maillog_domain_model_attachment (
 );
 
 #
-# Table structure for table 'tx_maillog_domain_model_pendingmessage'
+# Table structure for table 'tx_queuemailer_domain_model_pendingmessage'
 #
-CREATE TABLE tx_maillog_domain_model_pendingmessage (
+CREATE TABLE tx_queuemailer_domain_model_pendingmessage (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -79,9 +79,9 @@ CREATE TABLE tx_maillog_domain_model_pendingmessage (
 );
 
 #
-# Table structure for table 'tx_maillog_domain_model_attachment'
+# Table structure for table 'tx_queuemailer_domain_model_attachment'
 #
-CREATE TABLE tx_maillog_domain_model_attachment (
+CREATE TABLE tx_queuemailer_domain_model_attachment (
 
 	mail  int(11) unsigned DEFAULT '0' NOT NULL,
 

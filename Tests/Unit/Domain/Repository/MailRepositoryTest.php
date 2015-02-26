@@ -44,6 +44,10 @@ class MailRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	protected function setUp() {
 		$this->subject = $this->getMock('MONOGON\\QueueMailer\\Domain\\Repository\\MailRepository', array('add'), array(), '', FALSE);
+
+		$persistenceManagerMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
+
+		$this->inject($this->subject, 'persistenceManager', $persistenceManagerMock);
 	}
 
 	protected function tearDown() {

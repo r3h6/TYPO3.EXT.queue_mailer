@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_maillog_domain_model_pendingmessage'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_maillog_domain_model_pendingmessage']['ctrl'],
+$GLOBALS['TCA']['tx_queuemailer_domain_model_pendingmessage'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_queuemailer_domain_model_pendingmessage']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'message, scheduled, is_dummy_record',
 	),
@@ -18,7 +18,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_pendingmessage'] = array(
 
 		'message' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_pendingmessage.message',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_pendingmessage.message',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -28,7 +28,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_pendingmessage'] = array(
 		),
 		'scheduled' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_pendingmessage.scheduled',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_pendingmessage.scheduled',
 			'config' => array(
 				'type' => 'input',
 				'size' => 10,
@@ -39,7 +39,7 @@ $GLOBALS['TCA']['tx_maillog_domain_model_pendingmessage'] = array(
 		),
 		'is_dummy_record' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_maillog_domain_model_pendingmessage.is_dummy_record',
+			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_pendingmessage.is_dummy_record',
 			'config' => array(
 				'type' => 'check',
 				'default' => 0

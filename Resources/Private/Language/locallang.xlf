@@ -3,88 +3,88 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2015-02-24T23:22:21Z" product-name="queue_mailer">
 		<header/>
 		<body>
-			<trans-unit id="tx_maillog_domain_model_mail">
+			<trans-unit id="tx_queuemailer_domain_model_mail">
 				<source>Mail</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_subject">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_subject">
 				<source>Mail Subject</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_to">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_to">
 				<source>Mail To</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_cc">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_cc">
 				<source>Mail Cc</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_bcc">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_bcc">
 				<source>Mail Bcc</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_from">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_from">
 				<source>Mail From</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_reply_to">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_reply_to">
 				<source>Mail Reply To</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_message">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_message">
 				<source>Mail Message</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.mail_date">
+			<trans-unit id="tx_queuemailer_domain_model_mail.mail_date">
 				<source>Mail Date</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.is_dummy_record">
+			<trans-unit id="tx_queuemailer_domain_model_mail.is_dummy_record">
 				<source>Is Dummy Record</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.failed_recipients">
+			<trans-unit id="tx_queuemailer_domain_model_mail.failed_recipients">
 				<source>Failed Recipients</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.sent">
+			<trans-unit id="tx_queuemailer_domain_model_mail.sent">
 				<source>Sent</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_mail.attachments">
+			<trans-unit id="tx_queuemailer_domain_model_mail.attachments">
 				<source>Attachments</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_attachment">
+			<trans-unit id="tx_queuemailer_domain_model_attachment">
 				<source>Attachment</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_attachment.file">
+			<trans-unit id="tx_queuemailer_domain_model_attachment.file">
 				<source>File</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_attachment.size">
+			<trans-unit id="tx_queuemailer_domain_model_attachment.size">
 				<source>Size</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_attachment.data">
+			<trans-unit id="tx_queuemailer_domain_model_attachment.data">
 				<source>Data</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_attachment.is_dummy_record">
+			<trans-unit id="tx_queuemailer_domain_model_attachment.is_dummy_record">
 				<source>Is Dummy Record</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_pendingmessage">
+			<trans-unit id="tx_queuemailer_domain_model_pendingmessage">
 				<source>Pending Message</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_pendingmessage.message">
+			<trans-unit id="tx_queuemailer_domain_model_pendingmessage.message">
 				<source>Message</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_pendingmessage.scheduled">
+			<trans-unit id="tx_queuemailer_domain_model_pendingmessage.scheduled">
 				<source>Scheduled</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_pendingmessage.is_dummy_record">
+			<trans-unit id="tx_queuemailer_domain_model_pendingmessage.is_dummy_record">
 				<source>Is Dummy Record</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_queuedmailmessage">
+			<trans-unit id="tx_queuemailer_domain_model_queuedmailmessage">
 				<source>Queued Mail Message</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_queuedmailmessage.message">
+			<trans-unit id="tx_queuemailer_domain_model_queuedmailmessage.message">
 				<source>Message</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_queuedmailmessage.scheduled">
+			<trans-unit id="tx_queuemailer_domain_model_queuedmailmessage.scheduled">
 				<source>Scheduled</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_queue">
+			<trans-unit id="tx_queuemailer_domain_model_queue">
 				<source>Queue</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_queue.message">
+			<trans-unit id="tx_queuemailer_domain_model_queue.message">
 				<source>Message</source>
 			</trans-unit>
-			<trans-unit id="tx_maillog_domain_model_queue.scheduled">
+			<trans-unit id="tx_queuemailer_domain_model_queue.scheduled">
 				<source>Scheduled</source>
 			</trans-unit>
 		</body>
