@@ -27,12 +27,12 @@ namespace MONOGON\QueueMailer\Mail;
  ***************************************************************/
 
 use Exception;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * MailMessage
+ * TemplateMailMessage
  */
-class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
+class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -51,7 +51,7 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 	 * [$variables description]
 	 * @var array
 	 */
-	protected $variables;
+	protected $variables = array();
 
 	/**
 	 * @return void
@@ -74,17 +74,32 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 		return $this->mailer->send($this, $this->failedRecipients);
 	}
 
+	/**
+	 * [queue description]
+	 * @return boolean [description]
+	 */
 	public function queue (){
 		$this->initializeMailer();
 		$this->getHeaders()->addTextHeader('X-Mailer', $this->mailerHeader);
 		return $this->mailer->queue($this, $this->failedRecipients);
 	}
 
+	/**
+	 * [getVariables description]
+	 * @return array [description]
+	 */
 	public function getVariables (){
 		return $this->variables;
 	}
 
-	public function setTemplateBody ($templateName, $variables = array(), $format = NULL){
+	/**
+	 * [setBodyFromTemplate description]
+	 * @param string $templateName Template name
+	 * @param array  $variables    [description]
+	 * @param string $format html or text
+	 * @return  TemplateMailMessage [description]
+	 */
+	public function setBodyFromTemplate ($templateName, $variables = array(), $format = NULL){
 		$this->variables = $variables;
 		if ($format === NULL || $format === 'text'){
 			try {
@@ -106,8 +121,16 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 				$this->getLogger()->error($exception->getMessage());
 			}
 		}
+		return $this;
 	}
 
+	/**
+	 * [renderTemplate description]
+	 * @param  string $templateName Template name
+	 * @param  array $variables
+	 * @param  string $format       [description]
+	 * @return string               [description]
+	 */
 	protected function renderTemplate ($templateName, $variables, $format){
 
 //CONFIGURATION_TYPE_FRAMEWORK
@@ -131,6 +154,10 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 		return $emailView->render();
 	}
 
+	/**
+	 * [getLogger description]
+	 * @return TYPO3\CMS\Core\Log\LogManager
+	 */
 	protected function getLogger (){
 		return GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Log\\LogManager')->getLogger(__CLASS__);
 	}

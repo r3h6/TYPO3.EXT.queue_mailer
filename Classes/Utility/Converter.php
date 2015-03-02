@@ -43,7 +43,30 @@ class Converter {
 			$mail->setVariables($message->getVariables());
 		}
 
+		foreach ($message->getChildren() as $entity){
+			if ($entity instanceof \Swift_Mime_Attachment){
+				$mail->addAttachment(static::swift2attachment($entity));
+			}
+			// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entity);
+		}
 		return $mail;
+	}
+
+	public static function swift2attachment (\Swift_Mime_Attachment $entity){
+		$attachment = GeneralUtility::makeInstance('MONOGON\\QueueMailer\\Domain\\Model\\Attachment');
+
+		$attachment->setName($entity->getFilename());
+		$attachment->setSize($entity->getSize());
+
+
+		$attachment->setData($entity->getBody());
+		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entity); exit;
+		// $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+
+		// $logger->info(print_r($entity, TRUE));
+		// exit;
+
+		return $attachment;
 	}
 
 	public static function emailArray2emailString ($source){

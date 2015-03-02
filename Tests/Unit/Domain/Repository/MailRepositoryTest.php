@@ -26,7 +26,7 @@ namespace MONOGON\QueueMailer\Tests\Unit\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\MailMessage;
 
 /**
  * Test case for class \MONOGON\QueueMailer\Domain\Repository\MailRepository.

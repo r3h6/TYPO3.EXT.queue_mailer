@@ -28,16 +28,16 @@ namespace MONOGON\QueueMailer\Tests\Unit\Mail;
 
 
 /**
- * Test case for class \MONOGON\QueueMailer\Mail\MailMessage.
+ * Test case for class \MONOGON\QueueMailer\Mail\TemplateMailMessage.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  * @author R3 H6 <r3h6@outlook.com>
  */
-class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
-	 * @var \MONOGON\QueueMailer\Mail\MailMessage
+	 * @var \MONOGON\QueueMailer\Mail\TemplateMailMessage
 	 */
 	protected $subject = NULL;
 
@@ -49,7 +49,7 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		// $this->testingFramework = new \Tx_Phpunit_Framework('tx_queuemailer');
 		// $this->testingFramework->createFakeFrontEnd(0);
 
-		$this->subject = new \MONOGON\QueueMailer\Mail\MailMessage();
+		$this->subject = new \MONOGON\QueueMailer\Mail\TemplateMailMessage();
 
 		$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$this->inject($this->subject, 'objectManager', $objectManager);
@@ -76,16 +76,26 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setTemplateBodyPlainText (){
-		$this->subject->setTemplateBody('Example', array(), 'text');
+	public function checkChaining (){
+		$this->assertInstanceOf(
+			'MONOGON\\QueueMailer\\Mail\\TemplateMailMessage',
+			$this->subject->setBodyFromTemplate('Example', array(), 'not_valid_format')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setBodyFromTemplatePlainText (){
+		$this->subject->setBodyFromTemplate('Example', array(), 'text');
 		$this->assertRegExp('/Hello/', $this->subject->getBody());
 	}
 
 	/**
 	 * @test
 	 */
-	public function setTemplateBodyHtml (){
-		$this->subject->setTemplateBody('Example', array(), 'html');
+	public function setBodyFromTemplateHtml (){
+		$this->subject->setBodyFromTemplate('Example', array(), 'html');
 		$children = $this->subject->getChildren();
 		$this->assertRegExp('/<html>/', $children[0]->getBody());
 	}
@@ -93,8 +103,8 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setTemplateBodyAuto (){
-		$this->subject->setTemplateBody('Example');
+	public function setBodyFromTemplateAuto (){
+		$this->subject->setBodyFromTemplate('Example');
 		$this->assertRegExp('/Hello/', $this->subject->getBody());
 		$children = $this->subject->getChildren();
 		$this->assertRegExp('/<html>/', $children[0]->getBody());
@@ -105,7 +115,7 @@ class MailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setTemplateVariables (){
 		$variables = array('test' => 'Success');
-		$this->subject->setTemplateBody('Example', $variables, 'text');
+		$this->subject->setBodyFromTemplate('Example', $variables, 'text');
 		$this->assertSame($variables, $this->subject->getVariables());
 		$this->assertRegExp('/Success/', $this->subject->getBody());
 	}

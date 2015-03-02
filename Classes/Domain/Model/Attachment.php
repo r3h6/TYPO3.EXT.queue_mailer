@@ -39,6 +39,13 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $identifier = '';
 
 	/**
+	 * Name
+	 *
+	 * @var string
+	 */
+	protected $name = '';
+
+	/**
 	 * Size (bytes)
 	 *
 	 * @var integer
@@ -58,13 +65,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var boolean
 	 */
 	protected $isDummyRecord = FALSE;
-
-	/**
-	 * name
-	 *
-	 * @var boolean
-	 */
-	protected $name = FALSE;
 
 	/**
 	 * Returns the size
@@ -145,7 +145,7 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Sets the identifier
 	 *
 	 * @param string $identifier
-	 * @return string identifier
+	 * @return void
 	 */
 	public function setIdentifier($identifier) {
 		$this->identifier = $identifier;
@@ -154,7 +154,7 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the name
 	 *
-	 * @return boolean $name
+	 * @return string name
 	 */
 	public function getName() {
 		return $this->name;
@@ -163,20 +163,11 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the name
 	 *
-	 * @param boolean $name
+	 * @param string $name
 	 * @return void
 	 */
 	public function setName($name) {
 		$this->name = $name;
-	}
-
-	/**
-	 * Returns the boolean state of name
-	 *
-	 * @return boolean
-	 */
-	public function isName() {
-		return $this->name;
 	}
 
 }

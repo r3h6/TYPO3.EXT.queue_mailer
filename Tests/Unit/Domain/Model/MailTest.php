@@ -42,6 +42,7 @@ class MailTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	protected function setUp() {
 		$this->subject = new \MONOGON\QueueMailer\Domain\Model\Mail();
+		// $this->subject = $this->getMock('MONOGON\\QueueMailer\\Domain\\Model\\Mail');
 	}
 
 	protected function tearDown() {
@@ -284,7 +285,7 @@ class MailTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function getVariablesReturnsInitialValueForString() {
 		$this->assertSame(
-			'',
+			array(),
 			$this->subject->getVariables()
 		);
 	}
@@ -293,13 +294,16 @@ class MailTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setVariablesForStringSetsVariables() {
-		$this->subject->setVariables('Conceived at T3CON10');
+		$variables = array('test' => 'Hello world!');
+		$this->subject->setVariables($variables);
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
+		$this->assertAttributeInternalType(
+			'string',
 			'variables',
 			$this->subject
 		);
+
+		$this->assertSame($variables, $this->subject->getVariables());
 	}
 
 	/**
@@ -315,11 +319,14 @@ class MailTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setVariablesKeyHashForStringSetsVariablesKeyHash() {
-		$this->subject->setVariablesKeyHash('Conceived at T3CON10');
+	public function setVariablesAndUpdateVariablesKeyHash() {
+		//$this->subject->setVariablesKeyHash('Conceived at T3CON10');
+		// $this->subject
+		// 	->expects($this->once())
+		// 	->method('updateVariablesKeyHash');
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
+		$this->subject->setVariables(array('test' => 'Hello world!'));
+		$this->assertAttributeNotEmpty(
 			'variablesKeyHash',
 			$this->subject
 		);

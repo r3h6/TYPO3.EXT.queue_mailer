@@ -29,9 +29,10 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_attachment'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_attachment.name',
 			'config' => array(
-				'type' => 'check',
-				'default' => 0
-			)
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
 		),
 		'size' => array(
 			'exclude' => 0,

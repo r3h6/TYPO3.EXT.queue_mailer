@@ -88,13 +88,6 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $mailDate = NULL;
 
 	/**
-	 * isDummyRecord
-	 *
-	 * @var boolean
-	 */
-	protected $isDummyRecord = FALSE;
-
-	/**
 	 * failedRecipients
 	 *
 	 * @var string
@@ -109,14 +102,6 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $sent = 0;
 
 	/**
-	 * Attachments
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MONOGON\QueueMailer\Domain\Model\Attachment>
-	 * @cascade remove
-	 */
-	protected $attachments = NULL;
-
-	/**
 	 * variables
 	 *
 	 * @var string
@@ -129,6 +114,21 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var string
 	 */
 	protected $variablesKeyHash = '';
+
+	/**
+	 * isDummyRecord
+	 *
+	 * @var boolean
+	 */
+	protected $isDummyRecord = FALSE;
+
+	/**
+	 * Attachments
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MONOGON\QueueMailer\Domain\Model\Attachment>
+	 * @cascade remove
+	 */
+	protected $attachments = NULL;
 
 	/**
 	 * __construct
@@ -410,20 +410,24 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the variables
 	 *
-	 * @return string $variables
+	 * @return array $variables
 	 */
 	public function getVariables() {
-		return unserialize($this->variables);
+		$variables = unserialize($this->variables);
+		if (is_array($variables)){
+			return $variables;
+		}
+		return array();
 	}
 
 	/**
 	 * Sets the variables
 	 *
-	 * @param string $variables
+	 * @param array $variables
 	 * @return void
 	 */
-	public function setVariables($variables) {
-		$this->variables = empty($variables) ? '': serialize($variables);
+	public function setVariables(array $variables) {
+		$this->variables = empty($variables) ? '' : serialize($variables);
 		$this->updateVariablesKeyHash();
 	}
 
@@ -447,13 +451,14 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->updateVariablesKeyHash();
 	}
 
-	protected function updateVariablesKeyHash (){
+	protected function updateVariablesKeyHash() {
 		$this->variablesKeyHash = '';
 		$variables = $this->getVariables();
-		if (is_array($variables) && count($variables)){
+		if (is_array($variables) && count($variables)) {
 			$keys = array_keys($variables);
 			sort($keys);
 			$this->variablesKeyHash = md5(join(',', $keys));
 		}
 	}
+
 }

@@ -26,8 +26,8 @@ namespace MONOGON\QueueMailer\Tests\Unit\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \Swift_Attachment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Swift_Attachment;
 
 /**
  * Test case for class \MONOGON\QueueMailer\Service\MailService.
@@ -83,7 +83,7 @@ class MailServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->objectManagerMock
 			->expects($this->once())
 			->method('get')
-			->with('MONOGON\\QueueMailer\\Mail\\MailMessage')
+			->with('MONOGON\\QueueMailer\\Mail\\TemplateMailMessage')
 			->will($this->returnValue($messageMock));
 
 		$this->subject->send(function ($message){
@@ -148,7 +148,7 @@ class MailServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->objectManagerMock
 			->expects($this->once())
 			->method('get')
-			->with('MONOGON\\QueueMailer\\Mail\\MailMessage')
+			->with('MONOGON\\QueueMailer\\Mail\\TemplateMailMessage')
 			->will($this->returnValue($messageMock));
 
 		$this->pendingMessageRepositoryMock
@@ -165,6 +165,6 @@ class MailServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	}
 
 	protected function getMessageMock (){
-		return $this->getMock('MONOGON\\QueueMailer\\Mail\\MailMessage', array('send', 'isSent'), array(), '', TRUE);
+		return $this->getMock('MONOGON\\QueueMailer\\Mail\\TemplateMailMessage', array('send', 'isSent'), array(), '', TRUE);
 	}
 }

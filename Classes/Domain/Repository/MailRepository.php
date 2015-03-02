@@ -36,13 +36,18 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * @param \TYPO3\CMS\Core\Mail\MailMessage $message
 	 * @param $sent
-	 * @param $failedRecipients
 	 * @return boolean
 	 */
 	public function addMessage(\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL) {
 		$mail = Converter::message2mail($message);
 		$mail->setSent($sent);
-		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($mail);
+		if (is_callable(array($message, 'getPid'))) {
+			$mail->setPid($message->getPid());
+		} else {
+			if (isset($GLOBALS['TSFE'])) {
+				$mail->setPid($GLOBALS['TSFE']->id);
+			}
+		}
 		$this->add($mail);
 		$this->persistenceManager->persistAll();
 		return $mail->getUid() !== NULL;

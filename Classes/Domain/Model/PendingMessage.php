@@ -53,7 +53,7 @@ class PendingMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $isDummyRecord = FALSE;
 
 	/**
-	 * Returns the message
+	 * Returns the unserialzed message
 	 *
 	 * @return \TYPO3\CMS\Core\Mail\MailMessage message
 	 */
@@ -66,7 +66,7 @@ class PendingMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Sets the message
+	 * Serializes and sets the message
 	 *
 	 * @param \TYPO3\CMS\Core\Mail\MailMessage $message
 	 * @return string message

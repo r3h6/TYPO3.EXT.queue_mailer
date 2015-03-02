@@ -235,7 +235,7 @@
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "name",
-                            "propertyType": "Boolean",
+                            "propertyType": "String",
                             "uid": "806114085599"
                         },
                         {
@@ -399,7 +399,7 @@
         }
     ],
     "log": {
-        "last_modified": "2015-02-26 10:38",
+        "last_modified": "2015-03-01 10:11",
         "extension_builder_version": "6.2.0",
         "be_user": " (1)"
     }

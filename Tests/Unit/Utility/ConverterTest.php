@@ -26,7 +26,7 @@ namespace MONOGON\QueueMailer\Tests\Unit\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use MONOGON\QueueMailer\Utility\Converter;
 
 /**
@@ -73,5 +73,31 @@ class ConverterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mail = Converter::message2mail($message);
 
 		$this->assertInstanceOf('MONOGON\\QueueMailer\\Domain\\Model\\Mail', $mail);
+	}
+
+	/**
+	 * @test
+	 */
+	public function convertMessageWithAttachmentsToEmail () {
+		$attachmentsDir = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('queue_mailer') . 'Tests/Resources/Private/Attachments/';
+		$message = new MailMessage();
+		$message
+			->setFrom(array('test@phpunit.com' => 'PHP Unit'))
+			->setTo(array('r3h6@outlook.com' => 'R3 H6'))
+			->setSubject('Test')
+			->setBody('Donec interdum metus et hendrerit.', 'text/plain')
+			->addPart('<html><head></head><body>Donec!</body></html>', 'text/html')
+			->attach(\Swift_Attachment::fromPath($attachmentsDir . 'Lorem_ipsum.docx'))
+			->attach(\Swift_Attachment::fromPath($attachmentsDir . 'Lorem_ipsum.pdf'));
+
+
+		$mail = Converter::message2mail($message);
+// 		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($mail);
+// exit;
+		$this->assertInstanceOf('MONOGON\\QueueMailer\\Domain\\Model\\Mail', $mail);
+
+		$attachments = $mail->getAttachments();
+		$this->assertContainsOnly('MONOGON\\QueueMailer\\Domain\\Model\\Attachment', $attachments);
+		$this->assertCount(2, $attachments);
 	}
 }

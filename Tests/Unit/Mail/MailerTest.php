@@ -30,15 +30,16 @@ use MONOGON\QueueMailer\Utility\MailUtility;
 use MONOGON\QueueMailer\Configuration\ExtConf;
 
 
-require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Events/EventListener.php';
-require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/EncodingObserver.php';
-require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/CharsetObserver.php';
-require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/MimeEntity.php';
-require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/Message.php';
-require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Transport.php';
-require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Transport/NullTransport.php';
+// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Events/EventListener.php';
+// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/EncodingObserver.php';
+// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/CharsetObserver.php';
+// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/MimeEntity.php';
+// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/Message.php';
+// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Transport.php';
+// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Transport/NullTransport.php';
 
 
+require_once PATH_typo3 . 'contrib/swiftmailer/swift_required.php';
 // require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/NullTransport.php';
 
 // require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/DependencyContainer.php';
@@ -46,6 +47,23 @@ require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Transport/NullTrans
 
 // require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Events/EventDispatcher.php';
 
+class TransportMock extends \Swift_Transport_NullTransport {
+	const SEND_RETURN_VALUE = 5; // Not 1
+	public function __construct(){
+		parent::__construct(new \Swift_Events_SimpleEventDispatcher());
+	}
+	public function send(\Swift_Mime_Message $message, &$failedRecipients = null){
+		parent::send($message, $failedRecipients);
+
+		return self::SEND_RETURN_VALUE;
+	}
+}
+
+class MailerMock extends \MONOGON\QueueMailer\Mail\Mailer {
+	protected $mailSettings = array(
+		'transport' => 'MONOGON\\QueueMailer\\Tests\\Unit\\Mail\\TransportMock'
+	);
+}
 
 /**
  * Test case for class \MONOGON\QueueMailer\Mail\Mailer.
@@ -75,9 +93,13 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		// $nullTransport = \Swift_NullTransport::newInstance();
 
-		$this->transportMock = $this->getMock('Swift_Transport_NullTransport', array('send', 'registerPlugin'), array(), '', FALSE);
+		// $this->transportMock = $this->getMock('Swift_Transport_NullTransport', array('send', 'registerPlugin'), array(), '', FALSE);
 
-		$this->subject = new \MONOGON\QueueMailer\Mail\Mailer($this->transportMock);
+		// $this->transportMock = new \Swift_Transport_NullTransport(new \Swift_Events_EventDispatcher);
+
+		// $this->subject = new \MONOGON\QueueMailer\Mail\Mailer($this->transportMock);
+
+		$this->subject = new MailerMock();
 		// $this->subject = new \MONOGON\QueueMailer\Mail\Mailer($nullTransport);
 
 
@@ -112,17 +134,17 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function sendCoreMessage (){
 		$message = $this->createMessage();
 
-		$this->transportMock
-			->expects($this->once())
-			->method('send')
-			->with(
-				$this->identicalTo($message),
-				$this->identicalTo(array())
-			)
-			->will($this->returnValue(5));
+		// $this->transportMock
+		// 	->expects($this->once())
+		// 	->method('send')
+		// 	->with(
+		// 		$this->identicalTo($message),
+		// 		$this->identicalTo(array())
+		// 	)
+		// 	->will($this->returnValue(5));
 
 		$this->assertEquals(
-			5,
+			TransportMock::SEND_RETURN_VALUE,
 			$this->subject->send($message)
 		);
 	}
@@ -133,14 +155,14 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function sendQueueMailerMessage (){
 		$message = $this->createMailQueueMessage();
 
-		$this->transportMock
-			->expects($this->once())
-			->method('send')
-			->with(
-				$this->identicalTo($message),
-				$this->identicalTo(array())
-			)
-			->will($this->returnValue(5));
+		// $this->transportMock
+		// 	->expects($this->once())
+		// 	->method('send')
+		// 	->with(
+		// 		$this->identicalTo($message),
+		// 		$this->identicalTo(array())
+		// 	)
+		// 	->will($this->returnValue(5));
 
 		$this->mailServiceMock
 			->expects($this->once())
@@ -148,7 +170,7 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->with($message);
 
 		$this->assertEquals(
-			5,
+			TransportMock::SEND_RETURN_VALUE,
 			$this->subject->send($message)
 		);
 	}
@@ -161,15 +183,15 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$message = $this->createMessage();
 
-		$this->transportMock
-			->expects($this->never())
-			->method('send');
+		// $this->transportMock
+		// 	->expects($this->never())
+		// 	->method('send');
 
 		$this->mailServiceMock
 			->expects($this->once())
 			->method('queue')
 			->with($this->identicalTo($message))
-			->will($this->returnValue(1));
+			->will($this->returnValue(TRUE));
 
 		$this->assertEquals(
 			1,
@@ -185,14 +207,14 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		ExtConf::set('logAllMessages', '1');
 		$message = $this->createMessage();
 
-		$this->transportMock
-			->expects($this->once())
-			->method('send')
-			->with(
-				$this->identicalTo($message),
-				$this->identicalTo(array())
-			)
-			->will($this->returnValue(7));
+		// $this->transportMock
+		// 	->expects($this->once())
+		// 	->method('send')
+		// 	->with(
+		// 		$this->identicalTo($message),
+		// 		$this->identicalTo(array())
+		// 	)
+		// 	->will($this->returnValue(7));
 
 
 		$this->mailServiceMock
@@ -200,18 +222,17 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->method('log')
 			->with(
 				$this->identicalTo($message),
-				$this->identicalTo(7),
-				$this->identicalTo(array())
+				$this->identicalTo(TransportMock::SEND_RETURN_VALUE)
 			);
 
 		$this->assertEquals(
-			7,
+			TransportMock::SEND_RETURN_VALUE,
 			$this->subject->send($message)
 		);
 	}
 
 	protected function createMailQueueMessage (){
-		return $this->createMessage('MONOGON\\QueueMailer\\Mail\\MailMessage');
+		return $this->createMessage('MONOGON\\QueueMailer\\Mail\\TemplateMailMessage');
 	}
 
 	protected function createMessage ($className = 'TYPO3\\CMS\\Core\\Mail\\MailMessage'){

@@ -26,9 +26,9 @@ namespace MONOGON\QueueMailer\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \MONOGON\QueueMailer\Mail\MailMessage;
-use \Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use MONOGON\QueueMailer\Mail\MailMessage;
+use Exception;
 
 /**
  * MailService
@@ -56,15 +56,20 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	protected $pendingMessageRepository = NULL;
 
-
+	/**
+	 * [send description]
+	 * @param  \TYPO3\CMS\Core\Mail\MailMessage|callable $arg [description]
+	 * @return boolean      [description]
+	 */
 	public function send ($arg){
 		if (is_callable($arg)){
-			$message = $this->objectManager->get('MONOGON\\QueueMailer\\Mail\\MailMessage');
-			$arg($message);
+			$message = $this->createTemplateMailMessage();
+			call_user_func($arg, $message);
 		} else {
 			$message = $arg;
 		}
 		if ($message instanceof \TYPO3\CMS\Core\Mail\MailMessage){
+
 			if (!$message->isSent()){
 				try {
 					return $message->send() ? TRUE: FALSE;
@@ -77,13 +82,14 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 	}
 
 	public function log (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL){
+
 		$this->mailRepository->addMessage($message, $sent);
 	}
 
 	public function queue ($arg){
 		if (is_callable($arg)){
-			$message = $this->objectManager->get('MONOGON\\QueueMailer\\Mail\\MailMessage');
-			$arg($message);
+			$message = $this->createTemplateMailMessage();
+			call_user_func($arg, $message);
 		} else {
 			$message = $arg;
 		}
@@ -91,6 +97,17 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 			return $this->pendingMessageRepository->push($message);
 		}
 		return FALSE;
+	}
+
+	protected function createTemplateMailMessage (){
+		$message = $this->objectManager->get('MONOGON\\QueueMailer\\Mail\\TemplateMailMessage');
+
+		$fromMail = isset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']) ? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']: '';
+
+		$fromName = isset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName']) ? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName']: '';
+
+		$message->setFrom($fromMail, $fromName);
+		return $message;
 	}
 
 	protected function getLogger (){

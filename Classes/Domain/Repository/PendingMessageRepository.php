@@ -32,12 +32,26 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
+	// const STORAGE_PID = 0;
+
+	protected $defaultOrderings = array(
+		'crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING,
+	);
+
+	public function initializeObject (){
+		/** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+		$querySettings->setRespectStoragePage(FALSE);
+		$this->setDefaultQuerySettings($querySettings);
+	}
+
 	/**
 	 * @param \TYPO3\CMS\Core\Mail\MailMessage $message
 	 */
 	public function push(\TYPO3\CMS\Core\Mail\MailMessage $message) {
 		$pendingMessage = GeneralUtility::makeInstance('MONOGON\\QueueMailer\\Domain\\Model\\PendingMessage');
 		$pendingMessage->setMessage($message);
+		// $pendingMessage->setPid(self::STORAGE_PID);
 		$this->add($pendingMessage);
 		$this->persistenceManager->persistAll();
 		return $pendingMessage->getUid() !== NULL;
@@ -48,6 +62,8 @@ class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 * @return array
 	 */
 	public function pop($limit) {
+		$querySettings = $this->defaultQuerySettings;
+		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($querySettings); exit;
 		$messages = array();
 		$query = $this->createQuery();
 		if ($limit) {

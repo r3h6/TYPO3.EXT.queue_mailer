@@ -26,8 +26,8 @@ namespace MONOGON\QueueMailer\Command;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \Exception;
-use \MONOGON\QueueMailer\Configuration\ExtConf;
+use Exception;
+use MONOGON\QueueMailer\Configuration\ExtConf;
 
 /**
  * QueueCommandController
@@ -42,23 +42,18 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 	protected $pendingMessageRepository = NULL;
 
 	/**
-	 * Send queued messages.
+	 * Send queued messages
 	 *
 	 * @param  integer $limit Limit of messages sent per call
 	 * @return void
 	 */
 	public function sendCommand ($limit = 20){
 		try {
-			// $this->getLogger()->info(TYPO3_cliMode); exit;
 			$messages = $this->pendingMessageRepository->pop($limit);
+			// $this->getLogger()->info(print_r($messages, TRUE));
 			$queueAllMessages = ExtConf::get('queueAllMessages');
 			ExtConf::set('queueAllMessages', '0');
 			foreach ($messages as $message){
-				// if ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage){
-				// 	$message->send(TRUE);
-				// } else {
-				// 	$message->send();
-				// }
 				$message->send();
 			}
 			ExtConf::set('queueAllMessages', $queueAllMessages);
@@ -68,6 +63,11 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 		}
 	}
 
+	/**
+	 * Returns logger
+	 *
+	 * @return [type] [description]
+	 */
 	protected function getLogger (){
 		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Log\\LogManager')->getLogger(__CLASS__);
 	}

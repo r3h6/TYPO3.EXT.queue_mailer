@@ -54,7 +54,7 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 			$this->getLogger()->error($exception->getMessage());
 		}
 
-		if (ExtConf::get('logAllMessages') || ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage)){
+		if (ExtConf::get('logAllMessages') || ($message instanceof \MONOGON\QueueMailer\Mail\TemplateMailMessage)){
 			MailUtility::log($message, $sent);
 		}
 

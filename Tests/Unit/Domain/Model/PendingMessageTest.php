@@ -53,7 +53,7 @@ class PendingMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function getMessageReturnsInitialValueForString() {
 		$this->assertSame(
-			'',
+			NULL,
 			$this->subject->getMessage()
 		);
 	}
@@ -62,13 +62,17 @@ class PendingMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setMessageForStringSetsMessage() {
-		$this->subject->setMessage('Conceived at T3CON10');
+		$message = new \TYPO3\CMS\Core\Mail\MailMessage();
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
+		$this->subject->setMessage($message);
+
+		$this->assertAttributeInternalType(
+			'string',
 			'message',
 			$this->subject
 		);
+
+		$this->assertInstanceOf('TYPO3\\CMS\\Core\\Mail\\MailMessage', $this->subject->getMessage());
 	}
 
 	/**

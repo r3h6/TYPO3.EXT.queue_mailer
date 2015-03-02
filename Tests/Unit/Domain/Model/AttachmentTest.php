@@ -74,9 +74,9 @@ class AttachmentTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getNameReturnsInitialValueForBoolean() {
+	public function getNameReturnsInitialValueForString() {
 		$this->assertSame(
-			FALSE,
+			'',
 			$this->subject->getName()
 		);
 	}
@@ -84,11 +84,11 @@ class AttachmentTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setNameForBooleanSetsName() {
-		$this->subject->setName(TRUE);
+	public function setNameForStringSetsName() {
+		$this->subject->setName('Conceived at T3CON10');
 
 		$this->assertAttributeEquals(
-			TRUE,
+			'Conceived at T3CON10',
 			'name',
 			$this->subject
 		);
