@@ -59,10 +59,10 @@ class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 	/**
 	 * @param int $limit
-	 * @return array
+	 * @return array<\TYPO3\CMS\Core\Mail\MailMessage>
 	 */
 	public function pop($limit) {
-		$querySettings = $this->defaultQuerySettings;
+		// $querySettings = $this->defaultQuerySettings;
 		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($querySettings); exit;
 		$messages = array();
 		$query = $this->createQuery();
@@ -75,11 +75,21 @@ class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 			if (!$message instanceof \TYPO3\CMS\Core\Mail\MailMessage) {
 				throw new Exception(sprintf('Pending message with uid %s is not a MailMessage!', $pendingMessage->getUid()));
 			}
-			$messages[] = $message;
-			$this->remove($pendingMessage);
+			$messages[$pendingMessage->getUid()] = $message;
+			// $this->remove($pendingMessage);
 		}
-		$this->persistenceManager->persistAll();
+		// $this->persistenceManager->persistAll();
 		return $messages;
+	}
+
+	public function deleteByUid ($uid){
+		$GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_queuemailer_domain_model_pendingmessage', sprintf('uid=%d', $uid));
+		// $query = $this->createQuery();
+		// $query->statement(
+		// 	sprintf('DELETE FROM tx_queuemailer_domain_model_pendingmessage WHERE uid=%d LIMIT 1', $uid)
+		// );
+		// $results = $query->execute();
+		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($results); exit;
 	}
 
 }

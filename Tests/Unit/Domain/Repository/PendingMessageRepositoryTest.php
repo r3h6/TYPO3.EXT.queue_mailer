@@ -102,8 +102,12 @@ class PendingMessageRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->method('createQuery')
 			->will($this->returnValue($query));
 
+		// $this->subject
+		// 	->expects($this->exactly(3))
+		// 	->method('remove');
+
 		$this->subject
-			->expects($this->exactly(3))
+			->expects($this->never())
 			->method('remove');
 
 		$messages = $this->subject->pop(20);
@@ -113,7 +117,50 @@ class PendingMessageRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function functionalTestPop (){
+		$pendingMessageRepository = $this->createDummyRecords();
+
+		$messages = $pendingMessageRepository->pop(20);
+
+		$this->assertCount(3, $messages);
+		$this->assertContainsOnly('TYPO3\\CMS\\Core\\Mail\\MailMessage', $messages);
+
+		$this->assertCount(3, $pendingMessageRepository->findAll());
+	}
+
+	/**
+	 * @test
+	 * @depends functionalTestPop
+	 */
+	public function functionalTestDelete (){
+		$pendingMessageRepository = $this->createDummyRecords();
+
+
+		$messages = $pendingMessageRepository->pop(20);
+		$this->assertCount(3, $messages);
+		$this->assertArrayNotHasKey(0, $messages);
+
+		$pendingMessages = $pendingMessageRepository->findAll();
+		foreach ($pendingMessages as $pendingMessage){
+			$this->assertArrayHasKey($pendingMessage->getUid(), $messages);
+		}
+
+
+
+		foreach ($messages as $pendingMessageUid => $message){
+			$pendingMessageRepository->deleteByUid($pendingMessageUid);
+		}
+
+		$this->assertCount(0, $pendingMessageRepository->findAll());
+	}
+
+
+	protected function createDummyRecords (){
+		$pid = $this->testingFramework->createFrontEndPage(0, array(
+			'title' => 'Test ' . date('c'),
+		));
+
 		$record = array(
+			'pid' => $pid,
 			'message' => serialize($this->createMessage()),
 		);
 
@@ -121,21 +168,18 @@ class PendingMessageRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->testingFramework->createRecord('tx_queuemailer_domain_model_pendingmessage', $record);
 		$this->testingFramework->createRecord('tx_queuemailer_domain_model_pendingmessage', $record);
 
-
 		$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 
+
+
 		$pendingMessageRepository = $objectManager->get('MONOGON\\QueueMailer\\Domain\\Repository\\PendingMessageRepository');
-
-
 		/** @var $querySettings Typo3QuerySettings */
 		$querySettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$querySettings->setStoragePageIds(array(0));
+		$querySettings->setRespectStoragePage(TRUE);
+		$querySettings->setStoragePageIds(array($pid));
 		$pendingMessageRepository->setDefaultQuerySettings($querySettings);
 
-		$messages = $pendingMessageRepository->pop(20);
-
-		$this->assertCount(3, $messages);
-		$this->assertContainsOnly('TYPO3\\CMS\\Core\\Mail\\MailMessage', $messages);
+		return $pendingMessageRepository;
 	}
 
 	protected function createPendingMessage (){
