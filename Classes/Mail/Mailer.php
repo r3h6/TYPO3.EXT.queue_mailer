@@ -37,6 +37,14 @@ use Exception;
  */
 class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 
+
+	protected $signalSlotDispatcher;
+
+	public function __construct(\Swift_Transport $transport = NULL) {
+		parent::__construct($transport);
+		$this->signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+	}
+
 	/**
 	 * @param Swift_Mime_Message $message
 	 * @param array              $failedRecipients An array of failures by-reference
@@ -48,6 +56,7 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 		}
 
 		try {
+			$this->emitBeforeSendSignal($message);
 			$sent = parent::send($message, $failedRecipients);
 		} catch (Exception $exception){
 			$sent = 0;
@@ -59,6 +68,10 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 		}
 
 		return $sent;
+	}
+
+	protected function emitBeforeSendSignal ($message){
+		$this->signalSlotDispatcher->dispatch('TYPO3\\CMS\\Core\\Mail\\Mailer', 'beforeSend', array($message));
 	}
 
 	public function queue(Swift_Mime_Message $message, &$failedRecipients = null){
