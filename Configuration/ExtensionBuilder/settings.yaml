@@ -54,6 +54,9 @@ overwriteSettings:
       Backend: keep
       Templates: keep
 
+  Tests:
+    Unit: keep
+
   ext_icon.gif: keep
 
   ext_localconf.php: merge
