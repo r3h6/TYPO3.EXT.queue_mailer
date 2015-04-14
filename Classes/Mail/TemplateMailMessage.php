@@ -28,11 +28,17 @@ namespace MONOGON\QueueMailer\Mail;
 
 use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use MONOGON\QueueMailer\Utility\Converter;
+use MONOGON\QueueMailer\Exception\TemplateMailMessageTemplateNotFoundException;
 
 /**
  * TemplateMailMessage
  */
 class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
+
+	const FORMAT_HTML = 'html';
+	const FORMAT_TEXT = 'text';
+	const FORMAT_BOTH = 'both';
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -99,28 +105,65 @@ class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 	 * @param string $format html or text
 	 * @return  TemplateMailMessage [description]
 	 */
-	public function setBodyFromTemplate ($templateName, $variables = array(), $format = NULL){
-		$this->variables = $variables;
-		if ($format === NULL || $format === 'text'){
+	public function setBodyFromTemplate ($templateName, $variables = array(), $format = TemplateMailMessage::FORMAT_BOTH){
+
+		$this->variables = array_merge($this->variables, $variables);
+
+		$text = NULL;
+		$html = NULL;
+
+		if ($format === TemplateMailMessage::FORMAT_BOTH || $format === TemplateMailMessage::FORMAT_TEXT){
 			try {
-				$content = $this->renderTemplate($templateName, $variables, 'txt');
-				if ($content){
-					$this->setBody($content, 'text/plain');
+				$text = $this->renderTemplate($templateName, $variables, 'txt');
+				// if ($content){
+				// $this->setBody($content, 'text/plain');
+				// }
+			}catch (TemplateMailMessageTemplateNotFoundException $exception){
+				if ($format !== TemplateMailMessage::FORMAT_BOTH){
+					throw $exception;
 				}
-			}catch (Exception $exception){
-				$this->getLogger()->error($exception->getMessage());
+				// die("**");
+			// 	$this->getLogger()->error($exception->getMessage());
 			}
 		}
-		if ($format === NULL || $format === 'html'){
+		if ($format === TemplateMailMessage::FORMAT_BOTH || $format === TemplateMailMessage::FORMAT_HTML){
 			try {
-				$content = $this->renderTemplate($templateName, $variables, 'html');
-				if ($content){
-					$this->addPart($content, 'text/html');
+				$html = $this->renderTemplate($templateName, $variables, 'html');
+			}catch (TemplateMailMessageTemplateNotFoundException $exception){
+				if ($format !== TemplateMailMessage::FORMAT_BOTH){
+					throw $exception;
 				}
-			} catch (Exception $exception){
-				$this->getLogger()->error($exception->getMessage());
-			}
+				// die("**");
+			// 	$this->getLogger()->error($exception->getMessage());
+			}	// if ($content){
+				// $this->addPart($content, 'text/html');
+				// }
+			// } catch (Exception $exception){
+			// 	$this->getLogger()->error($exception->getMessage());
+			// }
 		}
+
+		if ($text === NULL && $html === NULL){
+			throw new TemplateMailMessageTemplateNotFoundException("Template '$templateName.$format' not found.", 1429045685);
+		}
+
+		if ($text === NULL && $format === TemplateMailMessage::FORMAT_BOTH){
+			$text = Converter::html2text($html);
+		}
+
+		if ($html === NULL && $format === TemplateMailMessage::FORMAT_BOTH){
+			$html = Converter::text2html($text);
+		}
+
+		if ($text !== NULL){
+			$this->setBody($text, 'text/plain');
+			if ($html !== NULL){
+				$this->addPart($html, 'text/html');
+			}
+		} else {
+			$this->setBody($html, 'text/html');
+		}
+
 		return $this;
 	}
 
@@ -137,6 +180,10 @@ class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$templateRootPath = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 		$templatePathAndFilename = $templateRootPath . 'MailMessage/' . $templateName . '.' . $format;
+
+		if (!file_exists($templatePathAndFilename)){
+			throw new TemplateMailMessageTemplateNotFoundException("Template '$templatePathAndFilename' not found.", 1429045685);
+		}
 
 
 		$layoutRootPath = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']);

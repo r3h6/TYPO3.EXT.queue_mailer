@@ -33,6 +33,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Converter {
 
+	public static function html2text ($html){
+		$converter = new \Html2Text\Html2Text($html);
+		return $converter->getText();
+	}
+
+	public static function text2html ($text){
+		return preg_replace('/(\n\r)|(\n)|(\r)/', '<br>', $text);
+	}
+
 	public static function message2mail (\TYPO3\CMS\Core\Mail\MailMessage $message){
 		$mail = GeneralUtility::makeInstance('MONOGON\\QueueMailer\\Domain\\Model\\Mail');
 		$mail->setMailSubject($message->getSubject());

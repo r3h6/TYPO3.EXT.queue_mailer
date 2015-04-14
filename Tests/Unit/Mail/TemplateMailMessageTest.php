@@ -26,6 +26,7 @@ namespace MONOGON\QueueMailer\Tests\Unit\Mail;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \MONOGON\QueueMailer\Mail\TemplateMailMessage;
 
 /**
  * Test case for class \MONOGON\QueueMailer\Mail\TemplateMailMessage.
@@ -76,18 +77,8 @@ class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function checkChaining (){
-		$this->assertInstanceOf(
-			'MONOGON\\QueueMailer\\Mail\\TemplateMailMessage',
-			$this->subject->setBodyFromTemplate('Example', array(), 'not_valid_format')
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function setBodyFromTemplatePlainText (){
-		$this->subject->setBodyFromTemplate('Example', array(), 'text');
+		$this->subject->setBodyFromTemplate('Example', array(), TemplateMailMessage::FORMAT_TEXT);
 		$this->assertRegExp('/Hello/', $this->subject->getBody());
 	}
 
@@ -95,7 +86,7 @@ class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setBodyFromTemplateHtml (){
-		$this->subject->setBodyFromTemplate('Example', array(), 'html');
+		$this->subject->setBodyFromTemplate('Example', array(), TemplateMailMessage::FORMAT_HTML);
 		$children = $this->subject->getChildren();
 		$this->assertRegExp('/<html>/', $children[0]->getBody());
 	}
@@ -103,7 +94,7 @@ class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setBodyFromTemplateAuto (){
+	public function setBodyFromTemplateBoth (){
 		$this->subject->setBodyFromTemplate('Example');
 		$this->assertRegExp('/Hello/', $this->subject->getBody());
 		$children = $this->subject->getChildren();
@@ -115,8 +106,33 @@ class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setTemplateVariables (){
 		$variables = array('test' => 'Success');
-		$this->subject->setBodyFromTemplate('Example', $variables, 'text');
+		$this->subject->setBodyFromTemplate('Example', $variables, TemplateMailMessage::FORMAT_TEXT);
 		$this->assertSame($variables, $this->subject->getVariables());
 		$this->assertRegExp('/Success/', $this->subject->getBody());
+	}
+
+	/**
+	 * @test
+	 */
+	public function setBodyFromTemplateHtmlOnlyTextAuto (){
+		$this->subject->setBodyFromTemplate('HtmlOnly', array());
+
+		$this->assertRegExp('/Hello/', $this->subject->getBody());
+
+		$children = $this->subject->getChildren();
+		$this->assertRegExp('/<html>/', $children[0]->getBody());
+
+		// $children = $this->subject->getChildren();
+		// $this->assertRegExp('/<html>/', $children[0]->getBody());
+	}
+
+	/**
+	 * @test
+	 */
+	public function checkChaining (){
+		$this->assertInstanceOf(
+			'MONOGON\\QueueMailer\\Mail\\TemplateMailMessage',
+			$this->subject->setBodyFromTemplate('Example', array(), 'text')
+		);
 	}
 }

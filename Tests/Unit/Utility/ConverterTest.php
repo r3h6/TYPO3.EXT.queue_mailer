@@ -100,4 +100,19 @@ class ConverterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertContainsOnly('MONOGON\\QueueMailer\\Domain\\Model\\Attachment', $attachments);
 		$this->assertCount(2, $attachments);
 	}
+
+	/**
+	 * @test
+	 */
+	public function html2text (){
+		$text = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('queue_mailer') . 'Tests/Resources/html2text.txt';
+		$html = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('queue_mailer') . 'Tests/Resources/html2text.html';
+
+		//echo '<pre>' . Converter::html2text(file_get_contents($html)) . '</pre>'; exit;
+
+		$this->assertEquals(
+			file_get_contents($text),
+			Converter::html2text(file_get_contents($html))
+		);
+	}
 }
