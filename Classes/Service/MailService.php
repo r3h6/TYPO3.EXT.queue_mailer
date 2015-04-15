@@ -81,9 +81,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 		return FALSE;
 	}
 
-	public function log (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL){
-
-		$this->mailRepository->addMessage($message, $sent);
+	public function log (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL, $failedRecipients = NULL){
+		$this->mailRepository->addMessage($message, $sent, $failedRecipients);
 	}
 
 	public function queue ($arg){

@@ -10,3 +10,11 @@ if (\MONOGON\QueueMailer\Configuration\ExtConf::get('queueAllMessages') || \MONO
 	 'className' => 'MONOGON\\QueueMailer\\Mail\\Mailer'
 	);
 }
+
+$GLOBALS['TYPO3_CONF_VARS']['LOG']['MONOGON']['QueueMailer']['writerConfiguration'] = array(
+	\TYPO3\CMS\Core\Log\LogLevel::DEBUG => array(
+		'TYPO3\\CMS\\Core\\Log\\Writer\\FileWriter' => array(
+			'logFile' => 'typo3temp/logs/tx_queuemailer.log',
+		),
+	),
+);

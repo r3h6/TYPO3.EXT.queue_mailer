@@ -29,23 +29,8 @@ namespace MONOGON\QueueMailer\Tests\Unit\Mail;
 use MONOGON\QueueMailer\Utility\MailUtility;
 use MONOGON\QueueMailer\Configuration\ExtConf;
 
-
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Events/EventListener.php';
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/EncodingObserver.php';
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/CharsetObserver.php';
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/MimeEntity.php';
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Mime/Message.php';
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Transport.php';
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Transport/NullTransport.php';
-
-
 require_once PATH_typo3 . 'contrib/swiftmailer/swift_required.php';
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/NullTransport.php';
 
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/DependencyContainer.php';
-
-
-// require_once PATH_typo3 . 'contrib/swiftmailer/classes/Swift/Events/EventDispatcher.php';
 
 class TransportMock extends \Swift_Transport_NullTransport {
 	const SEND_RETURN_VALUE = 5; // Not 1
@@ -86,31 +71,12 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	protected $extConf = NULL;
 
 	protected function setUp() {
-
-		// $this->transportMock = $this->getMock('Swift_Transport_MailTransport', array('start', 'send', 'isStarted', 'stop', 'registerPlugin'), array(), '', FALSE);
-
-		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(class_implements($this->transportMock)); exit;
-
-		// $nullTransport = \Swift_NullTransport::newInstance();
-
-		// $this->transportMock = $this->getMock('Swift_Transport_NullTransport', array('send', 'registerPlugin'), array(), '', FALSE);
-
-		// $this->transportMock = new \Swift_Transport_NullTransport(new \Swift_Events_EventDispatcher);
-
-		// $this->subject = new \MONOGON\QueueMailer\Mail\Mailer($this->transportMock);
-
 		$this->subject = new MailerMock();
-		// $this->subject = new \MONOGON\QueueMailer\Mail\Mailer($nullTransport);
-
-
-		// $this->subject = $this->getMock('MONOGON\\QueueMailer\\Mail\\Mailer', array(), array(), '', FALSE);
-
-		// $this->inject($this->subject, '_transport', $this->transportMock);
 
 		$this->mailServiceMock = $this->getMock('MONOGON\\QueueMailer\\Service\\MailService', array('send', 'queue', 'log'), array(), '', FALSE);
 
 		MailUtility::setMockInstance($this->mailServiceMock);
-		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(class_implements($mailServiceMock)); exit;
+
 		$this->extConf = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][ExtConf::EXT_KEY];
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][ExtConf::EXT_KEY] = serialize(array(
 			'queueAllMessages' => '0',

@@ -87,8 +87,7 @@ class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setBodyFromTemplateHtml (){
 		$this->subject->setBodyFromTemplate('Example', array(), TemplateMailMessage::FORMAT_HTML);
-		$children = $this->subject->getChildren();
-		$this->assertRegExp('/<html>/', $children[0]->getBody());
+		$this->assertRegExp('/<html>/', $this->subject->getBody());
 	}
 
 	/**
@@ -121,9 +120,6 @@ class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$children = $this->subject->getChildren();
 		$this->assertRegExp('/<html>/', $children[0]->getBody());
-
-		// $children = $this->subject->getChildren();
-		// $this->assertRegExp('/<html>/', $children[0]->getBody());
 	}
 
 	/**
@@ -132,7 +128,23 @@ class TemplateMailMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function checkChaining (){
 		$this->assertInstanceOf(
 			'MONOGON\\QueueMailer\\Mail\\TemplateMailMessage',
-			$this->subject->setBodyFromTemplate('Example', array(), 'text')
+			$this->subject->setBodyFromTemplate('Example', array(), TemplateMailMessage::FORMAT_TEXT)
 		);
+	}
+
+	/**
+	 * @test
+	 * @expectedException InvalidArgumentException
+	 */
+	public function invalidArgumentException (){
+		$this->subject->setBodyFromTemplate('Example', array(), 'foo');
+	}
+
+	/**
+	 * @test
+	 * @expectedException \MONOGON\QueueMailer\Exception\FileNotFoundException
+	 */
+	public function fileNotExistsException (){
+		$this->subject->setBodyFromTemplate('NotExist', array(), TemplateMailMessage::FORMAT_TEXT);
 	}
 }

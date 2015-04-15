@@ -54,7 +54,14 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 			$queueAllMessages = ExtConf::get('queueAllMessages');
 			ExtConf::set('queueAllMessages', '0');
 			foreach ($messages as $pendingMessageUid => $message){
-				if ($message->send()){
+				$sent = 0;
+				try {
+					$sent = $message->send();
+				} catch (Exception $exception){
+					$this->getLogger()->error($exception->getMessage());
+				}
+
+				if ($sent){
 					$this->pendingMessageRepository->deleteByUid($pendingMessageUid);
 				}
 			}
@@ -63,6 +70,10 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 			$this->getLogger()->error($exception->getMessage());
 			throw $exception;
 		}
+	}
+
+	protected function emitSendingFailureSignal ($message, $exception){
+
 	}
 
 	/**

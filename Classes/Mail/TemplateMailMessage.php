@@ -26,10 +26,10 @@ namespace MONOGON\QueueMailer\Mail;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Exception;
+use InvalidArgumentException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use MONOGON\QueueMailer\Utility\Converter;
-use MONOGON\QueueMailer\Exception\TemplateMailMessageTemplateNotFoundException;
+use MONOGON\QueueMailer\Exception\FileNotFoundException;
 
 /**
  * TemplateMailMessage
@@ -107,6 +107,16 @@ class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 	 */
 	public function setBodyFromTemplate ($templateName, $variables = array(), $format = TemplateMailMessage::FORMAT_BOTH){
 
+		switch ($format) {
+			case TemplateMailMessage::FORMAT_BOTH:
+			case TemplateMailMessage::FORMAT_HTML:
+			case TemplateMailMessage::FORMAT_TEXT:
+				break;
+			default:
+				throw new InvalidArgumentException("Invalid argument format '$format'!", 1429125858);
+				break;
+		}
+
 		$this->variables = array_merge($this->variables, $variables);
 
 		$text = NULL;
@@ -115,44 +125,19 @@ class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 		if ($format === TemplateMailMessage::FORMAT_BOTH || $format === TemplateMailMessage::FORMAT_TEXT){
 			try {
 				$text = $this->renderTemplate($templateName, $variables, 'txt');
-				// if ($content){
-				// $this->setBody($content, 'text/plain');
-				// }
-			}catch (TemplateMailMessageTemplateNotFoundException $exception){
+			}catch (FileNotFoundException $exception){
 				if ($format !== TemplateMailMessage::FORMAT_BOTH){
 					throw $exception;
 				}
-				// die("**");
-			// 	$this->getLogger()->error($exception->getMessage());
 			}
 		}
-		if ($format === TemplateMailMessage::FORMAT_BOTH || $format === TemplateMailMessage::FORMAT_HTML){
-			try {
-				$html = $this->renderTemplate($templateName, $variables, 'html');
-			}catch (TemplateMailMessageTemplateNotFoundException $exception){
-				if ($format !== TemplateMailMessage::FORMAT_BOTH){
-					throw $exception;
-				}
-				// die("**");
-			// 	$this->getLogger()->error($exception->getMessage());
-			}	// if ($content){
-				// $this->addPart($content, 'text/html');
-				// }
-			// } catch (Exception $exception){
-			// 	$this->getLogger()->error($exception->getMessage());
-			// }
-		}
 
-		if ($text === NULL && $html === NULL){
-			throw new TemplateMailMessageTemplateNotFoundException("Template '$templateName.$format' not found.", 1429045685);
+		if ($format === TemplateMailMessage::FORMAT_BOTH || $format === TemplateMailMessage::FORMAT_HTML){
+			$html = $this->renderTemplate($templateName, $variables, 'html');
 		}
 
 		if ($text === NULL && $format === TemplateMailMessage::FORMAT_BOTH){
 			$text = Converter::html2text($html);
-		}
-
-		if ($html === NULL && $format === TemplateMailMessage::FORMAT_BOTH){
-			$html = Converter::text2html($text);
 		}
 
 		if ($text !== NULL){
@@ -182,7 +167,7 @@ class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 		$templatePathAndFilename = $templateRootPath . 'MailMessage/' . $templateName . '.' . $format;
 
 		if (!file_exists($templatePathAndFilename)){
-			throw new TemplateMailMessageTemplateNotFoundException("Template '$templatePathAndFilename' not found.", 1429045685);
+			throw new FileNotFoundException("Template '$templatePathAndFilename' not found.", 1429045685);
 		}
 
 

@@ -38,9 +38,6 @@ class Converter {
 		return $converter->getText();
 	}
 
-	public static function text2html ($text){
-		return preg_replace('/(\n\r)|(\n)|(\r)/', '<br>', $text);
-	}
 
 	public static function message2mail (\TYPO3\CMS\Core\Mail\MailMessage $message){
 		$mail = GeneralUtility::makeInstance('MONOGON\\QueueMailer\\Domain\\Model\\Mail');
