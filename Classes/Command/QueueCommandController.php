@@ -58,7 +58,8 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 				try {
 					$sent = $message->send();
 				} catch (Exception $exception){
-					$this->getLogger()->error($exception->getMessage());
+					$sent = 0;
+					$this->getLogger()->error("Could not send pending message #$pendingMessageUid because " . $exception->getMessage());
 				}
 
 				if ($sent){

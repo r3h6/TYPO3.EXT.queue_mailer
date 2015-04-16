@@ -44,6 +44,7 @@ class Converter {
 		$mail->setMailSubject($message->getSubject());
 		$mail->setMailFrom(Converter::emailArray2emailString($message->getFrom()));
 		$mail->setMailTo(Converter::emailArray2emailString($message->getTo()));
+		$mail->setFailedRecipients(Converter::emailArray2emailString($message->getFailedRecipients()));
 
 		if ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage){
 			$mail->setVariables($message->getVariables());

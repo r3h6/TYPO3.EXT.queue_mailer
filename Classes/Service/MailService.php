@@ -68,21 +68,30 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 		} else {
 			$message = $arg;
 		}
-		if ($message instanceof \TYPO3\CMS\Core\Mail\MailMessage){
 
-			if (!$message->isSent()){
-				try {
-					return $message->send() ? TRUE: FALSE;
-				} catch (Exception $exception){
-					$this->getLogger()->error($exception->getMessage());
-				}
-			}
+		if (!($message instanceof \TYPO3\CMS\Core\Mail\MailMessage)){
+			throw new InvalidArgumentException("Argument is not a '\TYPO3\CMS\Core\Mail\MailMessage'", 1429213548);
 		}
+
+		if (!$message->isSent()){
+			return $message->send() ? TRUE: FALSE;
+		}
+
 		return FALSE;
 	}
 
-	public function log (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL, $failedRecipients = NULL){
-		$this->mailRepository->addMessage($message, $sent, $failedRecipients);
+	/**
+	 * [log description]
+	 * @param  \TYPO3\CMS\Core\Mail\MailMessage $message [description]
+	 * @param  int                           $sent    [description]
+	 * @return boolean
+	 */
+	public function log (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent){
+		$success = $this->mailRepository->addMessage($message, $sent);
+		if (!$success){
+			$this->getLogger()->warning("Could not log a message", array($message));
+		}
+		return $success;
 	}
 
 	public function queue ($arg){
@@ -92,10 +101,11 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 		} else {
 			$message = $arg;
 		}
-		if ($message instanceof \TYPO3\CMS\Core\Mail\MailMessage){
-			return $this->pendingMessageRepository->push($message);
+
+		if (!($message instanceof \TYPO3\CMS\Core\Mail\MailMessage)){
+			throw new InvalidArgumentException("Argument is not a '\TYPO3\CMS\Core\Mail\MailMessage'", 1429213548);
 		}
-		return FALSE;
+		return $this->pendingMessageRepository->push($message);
 	}
 
 	protected function createTemplateMailMessage (){
@@ -109,6 +119,11 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface {
 		return $message;
 	}
 
+	/**
+	 * Returns a logger object.
+	 *
+	 * @return \TYPO3\CMS\Core\Log\Logger
+	 */
 	protected function getLogger (){
 		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
 	}

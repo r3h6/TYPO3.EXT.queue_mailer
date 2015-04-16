@@ -30,6 +30,6 @@ namespace MONOGON\QueueMailer\Exception;
 /**
  * FileNotFoundException
  */
-class FileNotFoundException extends \Exception {
+class FileNotFoundException extends \MONOGON\QueueMailer\Exception\Exception {
 
 }

@@ -28,8 +28,8 @@ namespace MONOGON\QueueMailer\Exception;
 
 
 /**
- * TemplateMailMessageTemplateNotFoundException
+ * Exception
  */
-class TemplateMailMessageTemplateNotFoundException extends \Exception {
+class Exception extends \Exception {
 
 }

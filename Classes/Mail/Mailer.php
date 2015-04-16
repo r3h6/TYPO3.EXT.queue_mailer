@@ -26,11 +26,13 @@ namespace MONOGON\QueueMailer\Mail;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Exception;
 use Swift_Transport;
 use Swift_Mime_Message;
 use MONOGON\QueueMailer\Utility\MailUtility;
 use MONOGON\QueueMailer\Configuration\ExtConf;
-use Exception;
+use MONOGON\QueueMailer\Exception\MessageSendException;
+
 
 /**
  * Mailer
@@ -44,24 +46,28 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 	 */
 	public function send(Swift_Mime_Message $message, &$failedRecipients = null){
 		if (ExtConf::get('queueAllMessages')){
-			return $this->queue($message, $failedRecipients) ? 1: 0;
+			return $this->queue($message) ? 1: 0;
 		}
 
 		try {
 			$sent = parent::send($message, $failedRecipients);
 		} catch (Exception $exception){
 			$sent = 0;
-			$this->getLogger()->error($exception->getMessage());
+			$this->getLogger()->error("Could not send message because " . $exception->getMessage(), array($message->getTo(), $message->getSubject(), $message->getBody()));
 		}
 
 		if (ExtConf::get('logAllMessages') || ($message instanceof \MONOGON\QueueMailer\Mail\TemplateMailMessage)){
-			MailUtility::log($message, $sent, $failedRecipients);
+			MailUtility::log($message, $sent);
+		}
+
+		if (isset($exception)){
+			throw new MessageSendException("Could not send message", 1429216806, $exception);
 		}
 
 		return $sent;
 	}
 
-	public function queue(Swift_Mime_Message $message, &$failedRecipients = null){
+	public function queue(Swift_Mime_Message $message){
 		return MailUtility::queue($message);
 	}
 

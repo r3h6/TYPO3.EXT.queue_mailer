@@ -60,7 +60,11 @@ class PendingMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getMessage() {
 		$message = NULL;
 		if ($this->message) {
-			$message = unserialize($this->message);
+			try {
+				$message = unserialize($this->message);
+			} catch (\Exception $exception){
+				$this->getLogger()->error(sprintf("Could not unserialze message for record #%d", $this->uid), array($exception->getMessage()));
+			}
 		}
 		return $message;
 	}
@@ -122,4 +126,12 @@ class PendingMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->isDummyRecord;
 	}
 
+	/**
+	 * Returns a logger object.
+	 *
+	 * @return \TYPO3\CMS\Core\Log\Logger
+	 */
+	protected function getLogger (){
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+	}
 }

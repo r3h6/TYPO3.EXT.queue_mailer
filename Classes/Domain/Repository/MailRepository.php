@@ -32,21 +32,21 @@ use MONOGON\QueueMailer\Utility\Converter;
  * The repository for Mails
  */
 class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
 	 * @inject
 	 */
-	protected $configurationManager;
+	protected $configurationManager = NULL;
 
 	/**
 	 * @param \TYPO3\CMS\Core\Mail\MailMessage $message
 	 * @param $sent
 	 * @return boolean
 	 */
-	public function addMessage(\TYPO3\CMS\Core\Mail\MailMessage $message, $sent = NULL, $failedRecipients = NULL) {
+	public function addMessage(\TYPO3\CMS\Core\Mail\MailMessage $message, $sent) {
 		$mail = Converter::message2mail($message);
 		$mail->setSent($sent);
-		$mail->setFailedRecipients(Converter::emailArray2emailString($failedRecipients));
 		// if (is_callable(array($message, 'getPid'))) {
 		// 	$mail->setPid($message->getPid());
 		// } else {
@@ -54,39 +54,34 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		// 		$mail->setPid($GLOBALS['TSFE']->id);
 		// 	}
 		// }
-
 		$this->configurationManager->setConfiguration(array(
-			'persistence.' => array(
-				'classes.' => array(
-					'MONOGON\QueueMailer\Domain\Model\Mail.' => array(
-						'newRecordStoragePid' => $GLOBALS['TSFE']->id,
-					),
-					'MONOGON\QueueMailer\Domain\Model\Attachment.' => array(
-						'newRecordStoragePid' => $GLOBALS['TSFE']->id,
-					),
-				),
-			),
-		));
-
+				'persistence.' => array(
+					'classes.' => array(
+						'MONOGON\\QueueMailer\\Domain\\Model\\Mail.' => array(
+							'newRecordStoragePid' => $GLOBALS['TSFE']->id
+						),
+						'MONOGON\\QueueMailer\\Domain\\Model\\Attachment.' => array(
+							'newRecordStoragePid' => $GLOBALS['TSFE']->id
+						)
+					)
+				)
+			));
 		// $frameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
 		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($frameworkConfiguration); exit;
 		// exit;
-
 		$pid = $GLOBALS['TSFE']->id;
 		// if (is_callable(array($message, 'getPid')) && $message->getPid()){
 		// 	$pid = $message->getPid();
 		// }
 		// $mail->setPid($pid);
-// 		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($pid);exit;
-// 		if ($pid){
-// /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
-// 			$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-// 			$querySettings->setRespectStoragePage(TRUE);
-// 			$querySettings->setStoragePageIds(array($pid));
-// 			$this->setDefaultQuerySettings($querySettings);
-// 		}
-
+		// 		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($pid);exit;
+		// 		if ($pid){
+		// /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+		// 			$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+		// 			$querySettings->setRespectStoragePage(TRUE);
+		// 			$querySettings->setStoragePageIds(array($pid));
+		// 			$this->setDefaultQuerySettings($querySettings);
+		// 		}
 		$this->add($mail);
 		$this->persistenceManager->persistAll();
 		return $mail->getUid() !== NULL;

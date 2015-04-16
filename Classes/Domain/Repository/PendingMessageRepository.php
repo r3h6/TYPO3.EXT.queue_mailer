@@ -33,12 +33,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	// const STORAGE_PID = 0;
-
 	protected $defaultOrderings = array(
-		'crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING,
+		'crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 	);
 
-	public function initializeObject (){
+	public function initializeObject() {
 		/** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
 		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 		$querySettings->setRespectStoragePage(FALSE);
@@ -46,7 +45,9 @@ class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	}
 
 	/**
-	 * @param \TYPO3\CMS\Core\Mail\MailMessage $message
+	 * [push description]
+	 * @param  \TYPO3\CMS\Core\Mail\MailMessage $message [description]
+	 * @return boolean                                    [description]
 	 */
 	public function push(\TYPO3\CMS\Core\Mail\MailMessage $message) {
 		$pendingMessage = GeneralUtility::makeInstance('MONOGON\\QueueMailer\\Domain\\Model\\PendingMessage');
@@ -72,24 +73,20 @@ class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$pendingMessages = $query->execute();
 		foreach ($pendingMessages as $pendingMessage) {
 			$message = $pendingMessage->getMessage();
-			if (!$message instanceof \TYPO3\CMS\Core\Mail\MailMessage) {
-				throw new Exception(sprintf('Pending message with uid %s is not a MailMessage!', $pendingMessage->getUid()));
-			}
+			// if (!$message instanceof \TYPO3\CMS\Core\Mail\MailMessage) {
+			// 	throw new Exception(sprintf('Pending message with uid %s is not a MailMessage!', $pendingMessage->getUid()));
+			// }
 			$messages[$pendingMessage->getUid()] = $message;
-			// $this->remove($pendingMessage);
 		}
 		// $this->persistenceManager->persistAll();
 		return $messages;
 	}
 
-	public function deleteByUid ($uid){
+	/**
+	 * @param $uid
+	 */
+	public function deleteByUid($uid) {
 		$GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_queuemailer_domain_model_pendingmessage', sprintf('uid=%d', $uid));
-		// $query = $this->createQuery();
-		// $query->statement(
-		// 	sprintf('DELETE FROM tx_queuemailer_domain_model_pendingmessage WHERE uid=%d LIMIT 1', $uid)
-		// );
-		// $results = $query->execute();
-		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($results); exit;
 	}
 
 }

@@ -1,0 +1,12 @@
+
+ # Module configuration
+module.tx_queuemailer {
+	persistence {
+		storagePid = {$module.tx_queuemailer.persistence.storagePid}
+	}
+	view {
+		templateRootPath = {$module.tx_queuemailer.view.templateRootPath}
+		partialRootPath = {$module.tx_queuemailer.view.partialRootPath}
+		layoutRootPath = {$module.tx_queuemailer.view.layoutRootPath}
+	}
+}

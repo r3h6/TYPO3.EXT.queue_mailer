@@ -1,5 +1,3 @@
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-
 #
 # Table structure for table 'tx_queuemailer_domain_model_mail'
 #
@@ -29,7 +27,6 @@ CREATE TABLE tx_queuemailer_domain_model_mail (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY phpunit_dummy (is_dummy_record),
 
 );
 
@@ -55,7 +52,6 @@ CREATE TABLE tx_queuemailer_domain_model_attachment (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY phpunit_dummy (is_dummy_record),
 
 );
 
@@ -77,7 +73,6 @@ CREATE TABLE tx_queuemailer_domain_model_pendingmessage (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY phpunit_dummy (is_dummy_record),
 
 );
 
@@ -90,3 +85,4 @@ CREATE TABLE tx_queuemailer_domain_model_attachment (
 
 );
 
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

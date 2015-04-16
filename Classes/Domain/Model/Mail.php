@@ -414,7 +414,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getVariables() {
 		$variables = unserialize($this->variables);
-		if (is_array($variables)){
+		if (is_array($variables)) {
 			return $variables;
 		}
 		return array();

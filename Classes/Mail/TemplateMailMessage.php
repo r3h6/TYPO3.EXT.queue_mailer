@@ -87,7 +87,7 @@ class TemplateMailMessage extends \TYPO3\CMS\Core\Mail\MailMessage{
 	public function queue (){
 		$this->initializeMailer();
 		$this->getHeaders()->addTextHeader('X-Mailer', $this->mailerHeader);
-		return $this->mailer->queue($this, $this->failedRecipients);
+		return $this->mailer->queue($this);
 	}
 
 	/**

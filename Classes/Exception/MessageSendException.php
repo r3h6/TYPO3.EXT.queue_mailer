@@ -1,5 +1,5 @@
 <?php
-namespace MONOGON\QueueMailer\ViewHelpers;
+namespace MONOGON\QueueMailer\Exception;
 
 /***************************************************************
  *
@@ -26,24 +26,10 @@ namespace MONOGON\QueueMailer\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * IncludeViewHelper
+ * MessageSendException
  */
-class IncludeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class MessageSendException extends \MONOGON\QueueMailer\Exception\Exception {
 
-	/**
-	 * [render description]
-	 * @param  string $file [description]
-	 * @return string        [description]
-	 */
-	public function render ($file){
-		$content = '';
-		$file = GeneralUtility::getFileAbsFileName($file);
-		if (file_exists($file)){
-			$content = @file_get_contents($file);
-		}
-		return $content;
-	}
 }
