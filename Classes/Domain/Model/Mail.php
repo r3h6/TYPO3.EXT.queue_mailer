@@ -36,91 +36,56 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @var string
 	 */
-	protected $mailSubject = '';
+	protected $subject = '';
 
 	/**
-	 * To
+	 * Recipients (to)
 	 *
 	 * @var string
 	 */
-	protected $mailTo = '';
+	protected $recipients = '';
 
 	/**
-	 * CC
+	 * Sender (from)
 	 *
 	 * @var string
 	 */
-	protected $mailCc = '';
+	protected $sender = '';
 
 	/**
-	 * BCC
+	 * Message
 	 *
 	 * @var string
 	 */
-	protected $mailBcc = '';
+	protected $message = '';
 
 	/**
-	 * From
-	 *
-	 * @var string
-	 */
-	protected $mailFrom = '';
-
-	/**
-	 * Reply to
-	 *
-	 * @var string
-	 */
-	protected $mailReplyTo = '';
-
-	/**
-	 * message
-	 *
-	 * @var string
-	 */
-	protected $mailMessage = '';
-
-	/**
-	 * Send time
-	 *
-	 * @var \DateTime
-	 */
-	protected $mailDate = NULL;
-
-	/**
-	 * failedRecipients
+	 * Failed recipients
 	 *
 	 * @var string
 	 */
 	protected $failedRecipients = '';
 
 	/**
-	 * sent
+	 * Sent
 	 *
 	 * @var integer
 	 */
 	protected $sent = 0;
 
 	/**
-	 * variables
+	 * Variables
 	 *
 	 * @var string
 	 */
 	protected $variables = '';
 
 	/**
-	 * variablesKeyHash
+	 * Variables key hash
 	 *
 	 * @var string
 	 */
 	protected $variablesKeyHash = '';
-
-	/**
-	 * isDummyRecord
-	 *
-	 * @var boolean
-	 */
-	protected $isDummyRecord = FALSE;
 
 	/**
 	 * Attachments
@@ -129,6 +94,13 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @cascade remove
 	 */
 	protected $attachments = NULL;
+
+	/**
+	 * Source
+	 *
+	 * @var string
+	 */
+	protected $source = '';
 
 	/**
 	 * __construct
@@ -187,177 +159,6 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setAttachments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments) {
 		$this->attachments = $attachments;
-	}
-
-	/**
-	 * Returns the mailSubject
-	 *
-	 * @return string mailSubject
-	 */
-	public function getMailSubject() {
-		return $this->mailSubject;
-	}
-
-	/**
-	 * Sets the mailSubject
-	 *
-	 * @param string $mailSubject
-	 * @return string mailSubject
-	 */
-	public function setMailSubject($mailSubject) {
-		$this->mailSubject = $mailSubject;
-	}
-
-	/**
-	 * Returns the mailTo
-	 *
-	 * @return string mailTo
-	 */
-	public function getMailTo() {
-		return $this->mailTo;
-	}
-
-	/**
-	 * Sets the mailTo
-	 *
-	 * @param string $mailTo
-	 * @return string mailTo
-	 */
-	public function setMailTo($mailTo) {
-		$this->mailTo = $mailTo;
-	}
-
-	/**
-	 * Returns the mailCc
-	 *
-	 * @return string mailCc
-	 */
-	public function getMailCc() {
-		return $this->mailCc;
-	}
-
-	/**
-	 * Sets the mailCc
-	 *
-	 * @param string $mailCc
-	 * @return string mailCc
-	 */
-	public function setMailCc($mailCc) {
-		$this->mailCc = $mailCc;
-	}
-
-	/**
-	 * Returns the mailBcc
-	 *
-	 * @return string mailBcc
-	 */
-	public function getMailBcc() {
-		return $this->mailBcc;
-	}
-
-	/**
-	 * Sets the mailBcc
-	 *
-	 * @param string $mailBcc
-	 * @return string mailBcc
-	 */
-	public function setMailBcc($mailBcc) {
-		$this->mailBcc = $mailBcc;
-	}
-
-	/**
-	 * Returns the mailFrom
-	 *
-	 * @return string mailFrom
-	 */
-	public function getMailFrom() {
-		return $this->mailFrom;
-	}
-
-	/**
-	 * Sets the mailFrom
-	 *
-	 * @param string $mailFrom
-	 * @return string mailFrom
-	 */
-	public function setMailFrom($mailFrom) {
-		$this->mailFrom = $mailFrom;
-	}
-
-	/**
-	 * Returns the mailReplyTo
-	 *
-	 * @return string mailReplyTo
-	 */
-	public function getMailReplyTo() {
-		return $this->mailReplyTo;
-	}
-
-	/**
-	 * Sets the mailReplyTo
-	 *
-	 * @param string $mailReplyTo
-	 * @return string mailReplyTo
-	 */
-	public function setMailReplyTo($mailReplyTo) {
-		$this->mailReplyTo = $mailReplyTo;
-	}
-
-	/**
-	 * Returns the mailMessage
-	 *
-	 * @return string mailMessage
-	 */
-	public function getMailMessage() {
-		return $this->mailMessage;
-	}
-
-	/**
-	 * Sets the mailMessage
-	 *
-	 * @param string $mailMessage
-	 * @return string mailMessage
-	 */
-	public function setMailMessage($mailMessage) {
-		$this->mailMessage = $mailMessage;
-	}
-
-	/**
-	 * Returns the mailDate
-	 *
-	 * @return \DateTime mailDate
-	 */
-	public function getMailDate() {
-		return $this->mailDate;
-	}
-
-	/**
-	 * Sets the mailDate
-	 *
-	 * @param \DateTime $mailDate
-	 * @return \DateTime mailDate
-	 */
-	public function setMailDate(\DateTime $mailDate) {
-		$this->mailDate = $mailDate;
-	}
-
-	/**
-	 * Returns the isDummyRecord
-	 *
-	 * @return boolean $isDummyRecord
-	 */
-	public function getIsDummyRecord() {
-		return $this->isDummyRecord;
-	}
-
-	/**
-	 * Sets the isDummyRecord
-	 *
-	 * @param boolean $isDummyRecord
-	 * @return void
-	 */
-	public function setIsDummyRecord($isDummyRecord) {
-		$this->isDummyRecord = $isDummyRecord;
 	}
 
 	/**
@@ -459,6 +260,101 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 			sort($keys);
 			$this->variablesKeyHash = md5(join(',', $keys));
 		}
+	}
+
+	/**
+	 * Returns the subject
+	 *
+	 * @return string subject
+	 */
+	public function getSubject() {
+		return $this->subject;
+	}
+
+	/**
+	 * Sets the subject
+	 *
+	 * @param string $subject
+	 * @return string subject
+	 */
+	public function setSubject($subject) {
+		$this->subject = $subject;
+	}
+
+	/**
+	 * Returns the recipients
+	 *
+	 * @return string recipients
+	 */
+	public function getRecipients() {
+		return $this->recipients;
+	}
+
+	/**
+	 * Sets the recipients
+	 *
+	 * @param string $recipients
+	 * @return string recipients
+	 */
+	public function setRecipients($recipients) {
+		$this->recipients = $recipients;
+	}
+
+	/**
+	 * Returns the sender
+	 *
+	 * @return string sender
+	 */
+	public function getSender() {
+		return $this->sender;
+	}
+
+	/**
+	 * Sets the sender
+	 *
+	 * @param string $sender
+	 * @return string sender
+	 */
+	public function setSender($sender) {
+		$this->sender = $sender;
+	}
+
+	/**
+	 * Returns the message
+	 *
+	 * @return string message
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
+
+	/**
+	 * Sets the message
+	 *
+	 * @param string $message
+	 * @return string message
+	 */
+	public function setMessage($message) {
+		$this->message = $message;
+	}
+
+	/**
+	 * Returns the source
+	 *
+	 * @return string $source
+	 */
+	public function getSource() {
+		return $this->source;
+	}
+
+	/**
+	 * Sets the source
+	 *
+	 * @param string $source
+	 * @return void
+	 */
+	public function setSource($source) {
+		$this->source = $source;
 	}
 
 }

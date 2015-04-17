@@ -33,7 +33,7 @@ if (TYPO3_MODE === 'BE') {
 $GLOBALS['TCA']['tx_queuemailer_domain_model_mail'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_mail',
-		'label' => 'mail_subject',
+		'label' => 'subject',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -42,7 +42,7 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_mail'] = array(
 		'enablecolumns' => array(
 
 		),
-		'searchFields' => 'mail_subject,mail_to,mail_cc,mail_bcc,mail_from,mail_reply_to,mail_message,mail_date,failed_recipients,sent,variables,variables_key_hash,is_dummy_record,attachments,',
+		'searchFields' => 'subject,recipients,sender,message,failed_recipients,sent,variables,variables_key_hash,source,attachments,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Mail.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_queuemailer_domain_model_mail.gif'
 	),
@@ -62,7 +62,7 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_attachment'] = array(
 		'enablecolumns' => array(
 
 		),
-		'searchFields' => 'identifier,name,size,data,is_dummy_record,',
+		'searchFields' => 'identifier,name,size,data,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Attachment.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_queuemailer_domain_model_attachment.gif'
 	),
@@ -73,7 +73,7 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_attachment'] = array(
 $GLOBALS['TCA']['tx_queuemailer_domain_model_pendingmessage'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_pendingmessage',
-		'label' => 'message',
+		'label' => 'uid',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',

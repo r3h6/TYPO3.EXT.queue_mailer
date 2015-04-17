@@ -35,10 +35,11 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * [$persistenceManager description]
+	 *
 	 * @var \MONOGON\QueueMailer\Persistence\PersistenceManager
 	 * @inject
 	 */
-	protected $persistenceManager;
+	protected $persistenceManager = NULL;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager

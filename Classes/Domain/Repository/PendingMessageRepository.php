@@ -34,10 +34,11 @@ class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 	/**
 	 * [$persistenceManager description]
+	 *
 	 * @var \MONOGON\QueueMailer\Persistence\PersistenceManager
 	 * @inject
 	 */
-	protected $persistenceManager;
+	protected $persistenceManager = NULL;
 
 	// const STORAGE_PID = 0;
 	protected $defaultOrderings = array(
@@ -53,7 +54,8 @@ class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 	/**
 	 * [push description]
-	 * @param  \TYPO3\CMS\Core\Mail\MailMessage $message [description]
+	 *
+	 * @param \TYPO3\CMS\Core\Mail\MailMessage $message [description]
 	 * @return boolean                                    [description]
 	 */
 	public function push(\TYPO3\CMS\Core\Mail\MailMessage $message) {

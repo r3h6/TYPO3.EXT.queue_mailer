@@ -60,13 +60,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $data = '';
 
 	/**
-	 * isDummyRecord
-	 *
-	 * @var boolean
-	 */
-	protected $isDummyRecord = FALSE;
-
-	/**
 	 * Returns the size
 	 *
 	 * @return integer $size
@@ -102,25 +95,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setData($data) {
 		$this->data = $data;
-	}
-
-	/**
-	 * Returns the isDummyRecord
-	 *
-	 * @return boolean $isDummyRecord
-	 */
-	public function getIsDummyRecord() {
-		return $this->isDummyRecord;
-	}
-
-	/**
-	 * Sets the isDummyRecord
-	 *
-	 * @param boolean $isDummyRecord
-	 * @return void
-	 */
-	public function setIsDummyRecord($isDummyRecord) {
-		$this->isDummyRecord = $isDummyRecord;
 	}
 
 	/**

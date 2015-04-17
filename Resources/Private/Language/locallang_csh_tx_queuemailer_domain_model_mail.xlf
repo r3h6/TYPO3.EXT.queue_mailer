@@ -1,46 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2015-04-16T21:39:17Z" product-name="queue_mailer">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-04-17T23:23:00Z" product-name="queue_mailer">
 		<header/>
 		<body>
-			<trans-unit id="mail_subject.description">
+			<trans-unit id="subject.description">
 				<source>Subject</source>
 			</trans-unit>
-			<trans-unit id="mail_to.description">
-				<source>To</source>
+			<trans-unit id="recipients.description">
+				<source>Recipients (to)</source>
 			</trans-unit>
-			<trans-unit id="mail_cc.description">
-				<source>CC</source>
+			<trans-unit id="sender.description">
+				<source>Sender (from)</source>
 			</trans-unit>
-			<trans-unit id="mail_bcc.description">
-				<source>BCC</source>
-			</trans-unit>
-			<trans-unit id="mail_from.description">
-				<source>From</source>
-			</trans-unit>
-			<trans-unit id="mail_reply_to.description">
-				<source>Reply to</source>
-			</trans-unit>
-			<trans-unit id="mail_message.description">
-				<source>message</source>
-			</trans-unit>
-			<trans-unit id="mail_date.description">
-				<source>Send time</source>
+			<trans-unit id="message.description">
+				<source>Message</source>
 			</trans-unit>
 			<trans-unit id="failed_recipients.description">
-				<source>failedRecipients</source>
+				<source>Failed recipients</source>
 			</trans-unit>
 			<trans-unit id="sent.description">
-				<source>sent</source>
+				<source>Sent</source>
 			</trans-unit>
 			<trans-unit id="variables.description">
-				<source>variables</source>
+				<source>Variables</source>
 			</trans-unit>
 			<trans-unit id="variables_key_hash.description">
-				<source>variablesKeyHash</source>
+				<source>Variables key hash</source>
 			</trans-unit>
-			<trans-unit id="is_dummy_record.description">
-				<source>isDummyRecord</source>
+			<trans-unit id="source.description">
+				<source>Source</source>
 			</trans-unit>
 			<trans-unit id="attachments.description">
 				<source>Attachments</source>

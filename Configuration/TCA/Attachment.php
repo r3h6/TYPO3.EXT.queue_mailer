@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $GLOBALS['TCA']['tx_queuemailer_domain_model_attachment'] = array(
 	'ctrl' => $GLOBALS['TCA']['tx_queuemailer_domain_model_attachment']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'identifier, name, size, data, is_dummy_record',
+		'showRecordFieldList' => 'identifier, name, size, data',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'identifier, name, size, data, is_dummy_record, '),
+		'1' => array('showitem' => 'identifier, name, size, data, '),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -51,14 +51,6 @@ $GLOBALS['TCA']['tx_queuemailer_domain_model_attachment'] = array(
 				'cols' => 40,
 				'rows' => 15,
 				'eval' => 'trim'
-			)
-		),
-		'is_dummy_record' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:queue_mailer/Resources/Private/Language/locallang_db.xlf:tx_queuemailer_domain_model_attachment.is_dummy_record',
-			'config' => array(
-				'type' => 'check',
-				'default' => 0
 			)
 		),
 		

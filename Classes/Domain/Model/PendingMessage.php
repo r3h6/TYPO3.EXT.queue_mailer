@@ -46,7 +46,7 @@ class PendingMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $scheduled = NULL;
 
 	/**
-	 * isDummyRecord
+	 * Is dummy record
 	 *
 	 * @var boolean
 	 */
@@ -62,8 +62,8 @@ class PendingMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		if ($this->message) {
 			try {
 				$message = unserialize($this->message);
-			} catch (\Exception $exception){
-				$this->getLogger()->error(sprintf("Could not unserialze message for record #%d", $this->uid), array($exception->getMessage()));
+			} catch (\Exception $exception) {
+				$this->getLogger()->error(sprintf('Could not unserialze message for record #%d', $this->uid), array($exception->getMessage()));
 			}
 		}
 		return $message;
@@ -131,7 +131,8 @@ class PendingMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \TYPO3\CMS\Core\Log\Logger
 	 */
-	protected function getLogger (){
-		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+	protected function getLogger() {
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Log\\LogManager')->getLogger(__CLASS__);
 	}
+
 }

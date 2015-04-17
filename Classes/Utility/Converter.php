@@ -41,14 +41,16 @@ class Converter {
 
 	public static function message2mail (\TYPO3\CMS\Core\Mail\MailMessage $message){
 		$mail = GeneralUtility::makeInstance('MONOGON\\QueueMailer\\Domain\\Model\\Mail');
-		$mail->setMailSubject($message->getSubject());
-		$mail->setMailFrom(Converter::emailArray2emailString($message->getFrom()));
-		$mail->setMailTo(Converter::emailArray2emailString($message->getTo()));
+		$mail->setSubject($message->getSubject());
+		$mail->setRecipients(Converter::emailArray2emailString($message->getFrom()));
+		$mail->setSender(Converter::emailArray2emailString($message->getTo()));
 		$mail->setFailedRecipients(Converter::emailArray2emailString($message->getFailedRecipients()));
 
-		$mail->mailMessage();
+		$mail->setMessage($message->getBody());
 
-		if ($message instanceof \MONOGON\QueueMailer\Mail\MailMessage){
+		$mail->setSource($message->toString());
+
+		if ($message instanceof \MONOGON\QueueMailer\Mail\TemplateMailMessage){
 			$mail->setVariables($message->getVariables());
 		}
 

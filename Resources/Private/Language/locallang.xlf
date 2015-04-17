@@ -1,34 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2015-04-16T21:39:17Z" product-name="queue_mailer">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-04-17T23:23:00Z" product-name="queue_mailer">
 		<header/>
 		<body>
 			<trans-unit id="tx_queuemailer_domain_model_mail">
 				<source>Mail</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_subject">
-				<source>Mail Subject</source>
+			<trans-unit id="tx_queuemailer_domain_model_mail.subject">
+				<source>Subject</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_to">
-				<source>Mail To</source>
+			<trans-unit id="tx_queuemailer_domain_model_mail.recipients">
+				<source>Recipients</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_cc">
-				<source>Mail Cc</source>
+			<trans-unit id="tx_queuemailer_domain_model_mail.sender">
+				<source>Sender</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_bcc">
-				<source>Mail Bcc</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_from">
-				<source>Mail From</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_reply_to">
-				<source>Mail Reply To</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_message">
-				<source>Mail Message</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.mail_date">
-				<source>Mail Date</source>
+			<trans-unit id="tx_queuemailer_domain_model_mail.message">
+				<source>Message</source>
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_mail.failed_recipients">
 				<source>Failed Recipients</source>
@@ -42,8 +30,8 @@
 			<trans-unit id="tx_queuemailer_domain_model_mail.variables_key_hash">
 				<source>Variables Key Hash</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_mail.is_dummy_record">
-				<source>Is Dummy Record</source>
+			<trans-unit id="tx_queuemailer_domain_model_mail.source">
+				<source>Source</source>
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_mail.attachments">
 				<source>Attachments</source>
@@ -63,9 +51,6 @@
 			<trans-unit id="tx_queuemailer_domain_model_attachment.data">
 				<source>Data</source>
 			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_attachment.is_dummy_record">
-				<source>Is Dummy Record</source>
-			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_pendingmessage">
 				<source>Pending Message</source>
 			</trans-unit>
@@ -77,27 +62,6 @@
 			</trans-unit>
 			<trans-unit id="tx_queuemailer_domain_model_pendingmessage.is_dummy_record">
 				<source>Is Dummy Record</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_attachment.file">
-				<source>File</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_queuedmailmessage">
-				<source>Queued Mail Message</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_queuedmailmessage.message">
-				<source>Message</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_queuedmailmessage.scheduled">
-				<source>Scheduled</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_queue">
-				<source>Queue</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_queue.message">
-				<source>Message</source>
-			</trans-unit>
-			<trans-unit id="tx_queuemailer_domain_model_queue.scheduled">
-				<source>Scheduled</source>
 			</trans-unit>
 		</body>
 	</file>

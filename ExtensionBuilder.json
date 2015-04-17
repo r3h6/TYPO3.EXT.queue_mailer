@@ -41,84 +41,44 @@
                             "propertyDescription": "Subject",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "mailSubject",
+                            "propertyName": "subject",
                             "propertyType": "String",
                             "uid": "182084716376"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "To",
+                            "propertyDescription": "Recipients (to)",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "mailTo",
+                            "propertyName": "recipients",
                             "propertyType": "Text",
                             "uid": "945076518582"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "CC",
+                            "propertyDescription": "Sender (from)",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "mailCc",
-                            "propertyType": "Text",
-                            "uid": "1339435074114"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "BCC",
-                            "propertyIsExcludeField": false,
-                            "propertyIsRequired": false,
-                            "propertyName": "mailBcc",
-                            "propertyType": "Text",
-                            "uid": "365374650453"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "From",
-                            "propertyIsExcludeField": false,
-                            "propertyIsRequired": false,
-                            "propertyName": "mailFrom",
+                            "propertyName": "sender",
                             "propertyType": "String",
                             "uid": "867008298826"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Reply to",
+                            "propertyDescription": "Message",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "mailReplyTo",
-                            "propertyType": "String",
-                            "uid": "424508520704"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "message",
-                            "propertyIsExcludeField": false,
-                            "propertyIsRequired": false,
-                            "propertyName": "mailMessage",
+                            "propertyName": "message",
                             "propertyType": "Text",
                             "uid": "545756609495"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Send time",
-                            "propertyIsExcludeField": false,
-                            "propertyIsRequired": false,
-                            "propertyName": "mailDate",
-                            "propertyType": "Date",
-                            "uid": "1359140310089"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Failed recipients",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "failedRecipients",
@@ -128,7 +88,7 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Sent",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "sent",
@@ -138,7 +98,7 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Variables",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "variables",
@@ -148,7 +108,7 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Variables key hash",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "variablesKeyHash",
@@ -158,12 +118,12 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Source",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "isDummyRecord",
-                            "propertyType": "Boolean",
-                            "uid": "809382023047"
+                            "propertyName": "source",
+                            "propertyType": "Text",
+                            "uid": "745965054523"
                         }
                     ]
                 },
@@ -231,7 +191,7 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Name",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "name",
@@ -257,16 +217,6 @@
                             "propertyName": "data",
                             "propertyType": "Text",
                             "uid": "759216169149"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": false,
-                            "propertyIsRequired": false,
-                            "propertyName": "isDummyRecord",
-                            "propertyType": "Boolean",
-                            "uid": "1035378065838"
                         }
                     ]
                 },
@@ -335,7 +285,7 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Is dummy record",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "isDummyRecord",
@@ -408,7 +358,7 @@
         }
     ],
     "log": {
-        "last_modified": "2015-04-16 09:39",
+        "last_modified": "2015-04-17 11:23",
         "extension_builder_version": "6.2.0",
         "be_user": " (1)"
     }
