@@ -42,16 +42,21 @@ class MailRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	protected $subject = NULL;
 
+	protected $persistenceManagerMock = NULL;
+
 	protected function setUp() {
 		$this->subject = $this->getMock('MONOGON\\QueueMailer\\Domain\\Repository\\MailRepository', array('add'), array(), '', FALSE);
 
-		$persistenceManagerMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
+		$this->persistenceManagerMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
+		$this->inject($this->subject, 'persistenceManager', $this->persistenceManagerMock);
 
-		$this->inject($this->subject, 'persistenceManager', $persistenceManagerMock);
+		$configurationManagerMock = $this->getMock('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager', array('setConfiguration'), array(), '', FALSE);
+		$this->inject($this->subject, 'configurationManager', $configurationManagerMock);
+
 	}
 
 	protected function tearDown() {
-		unset($this->subject);
+		unset($this->subject, $this->persistenceManagerMock);
 	}
 
 	/**
@@ -60,7 +65,7 @@ class MailRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function addMessage (){
 
 		// $mail = new \MONOGON\QueueMailer\Domain\Model\Mail();
-
+		$sent = 3;
 		$this->subject
 			->expects($this->once())
 			->method('add')
@@ -74,8 +79,11 @@ class MailRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->setSubject('Test')
 			->setBody('Donec interdum metus et hendrerit.');
 
+		$this->persistenceManagerMock
+			->expects($this->once())
+			->method('persistAll');
 
-		$this->subject->addMessage($message);
+		$this->subject->addMessage($message, $sent);
 	}
 
 }

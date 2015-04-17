@@ -50,14 +50,17 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 		}
 
 		try {
+			$this->emitBeforeSendMessage($message);
 			$sent = parent::send($message, $failedRecipients);
 		} catch (Exception $exception){
 			$sent = 0;
 			$this->getLogger()->error("Could not send message because " . $exception->getMessage(), array($message->getTo(), $message->getSubject(), $message->getBody()));
 		}
 
+		$this->emitAfterSendMessage($message);
+
 		if (ExtConf::get('logAllMessages') || ($message instanceof \MONOGON\QueueMailer\Mail\TemplateMailMessage)){
-			MailUtility::log($message, $sent);
+			$this->getMailService()->log($message, $sent);
 		}
 
 		if (isset($exception)){
@@ -68,10 +71,26 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 	}
 
 	public function queue(Swift_Mime_Message $message){
-		return MailUtility::queue($message);
+		return $this->getMailService()->queue($message);
+	}
+
+	protected function emitBeforeSendMessage (Swift_Mime_Message $message){
+		$this->getSignalSlotDispatcher()->dispatch(__CLASS__, 'beforeSendMessage', array($message));
+	}
+
+	protected function emitAfterSendMessage (Swift_Mime_Message $message){
+		$this->getSignalSlotDispatcher()->dispatch(__CLASS__, 'afterSendMessage', array($message));
 	}
 
 	protected function getLogger (){
 		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+	}
+
+	protected function getMailService (){
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')->get('MONOGON\\QueueMailer\\Service\\MailService');
+	}
+
+	protected function getSignalSlotDispatcher (){
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
 	}
 }

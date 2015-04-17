@@ -44,9 +44,13 @@ class QueueCommandControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->subject = new \MONOGON\QueueMailer\Command\QueueCommandController();
 		// $this->subject = $this->getMock('MONOGON\\QueueMailer\\Command\\QueueCommandController', array(), array(), '', FALSE);
 
-		$this->pendingMessageRepositoryMock = $this->getMock('MONOGON\\QueueMailer\\Domain\\Repository\\PendingMessageRepository', array('pop'), array(), '', FALSE);
+		$this->pendingMessageRepositoryMock = $this->getMock('MONOGON\\QueueMailer\\Domain\\Repository\\PendingMessageRepository', array('pop', 'deleteByUid'), array(), '', FALSE);
 
 		$this->inject($this->subject, 'pendingMessageRepository', $this->pendingMessageRepositoryMock);
+
+		$signalSlotDispatcherMock = $this->getMock('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+
+		$this->inject($this->subject, 'signalSlotDispatcher', $signalSlotDispatcherMock);
 	}
 
 	protected function tearDown() {
@@ -57,17 +61,28 @@ class QueueCommandControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function sendCommand (){
+		$limit = 5;
+		$messages = array(
+			$this->getMockMailMessage(),
+			$this->getMockMailMessage(),
+			$this->getMockMailMessage(),
+		);
+
 		$this->pendingMessageRepositoryMock
 			->expects($this->once())
 			->method('pop')
-			->with(5)
-			->will($this->returnValue(array(
-				$this->getMockMailMessage(),
-				$this->getMockMailMessage(),
-				$this->getMockMailMessage(),
-			)));
+			->with($limit)
+			->will($this->returnValue($messages));
 
-		$this->subject->sendCommand(5);
+		$this->pendingMessageRepositoryMock
+			->expects($this->exactly(count($messages)))
+			->method('deleteByUid')
+			->withConsecutive(
+				array(0),
+				array(1),
+				array(2)
+			);
+		$this->subject->sendCommand($limit);
 	}
 
 	protected function getMockMailMessage (){

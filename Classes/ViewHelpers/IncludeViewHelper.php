@@ -1,5 +1,5 @@
 <?php
-namespace MONOGON\QueueMailer\Utility;
+namespace MONOGON\QueueMailer\ViewHelpers;
 
 /***************************************************************
  *
@@ -29,25 +29,21 @@ namespace MONOGON\QueueMailer\Utility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * MailUtility
+ * IncludeViewHelper
  */
-class MailUtility {
+class IncludeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-
-	protected static $instance;
-
-	public static function getInstance (){
-		if (!static::$instance){
-			static::$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')->get('MONOGON\\QueueMailer\\Service\\MailService');
+	/**
+	 * [render description]
+	 * @param  string $file [description]
+	 * @return string        [description]
+	 */
+	public function render ($file){
+		$content = '';
+		$file = GeneralUtility::getFileAbsFileName($file);
+		if (file_exists($file)){
+			$content = @file_get_contents($file);
 		}
-		return static::$instance;
+		return $content;
 	}
-
-	public static function __callStatic($method, $args){
-
-		$instance = static::getInstance();
-
-		return call_user_func_array(array($instance, $method), $args);
-	}
-
 }

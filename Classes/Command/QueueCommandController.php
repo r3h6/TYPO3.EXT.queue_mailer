@@ -42,6 +42,14 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 	protected $pendingMessageRepository = NULL;
 
 	/**
+	 * SignalSlotDispatcher
+	 *
+	 * @var TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+	 * @inject
+	 */
+	protected $signalSlotDispatcher = NULL;
+
+	/**
 	 * Send queued messages
 	 *
 	 * @param  integer $limit Limit of messages sent per call
@@ -56,6 +64,9 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 			foreach ($messages as $pendingMessageUid => $message){
 				$sent = 0;
 				try {
+					if (!($message instanceof \TYPO3\CMS\Core\Mail\MailMessage)){
+						throw new Exception("Message is not a MailMessage.", 1429298058);
+					}
 					$sent = $message->send();
 				} catch (Exception $exception){
 					$sent = 0;
@@ -65,6 +76,7 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 				if ($sent){
 					$this->pendingMessageRepository->deleteByUid($pendingMessageUid);
 				}
+				$this->emitAfterSendMessage($message, $sent);
 			}
 			ExtConf::set('queueAllMessages', $queueAllMessages);
 		} catch (Exception $exception){
@@ -73,8 +85,14 @@ class QueueCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandCo
 		}
 	}
 
-	protected function emitSendingFailureSignal ($message, $exception){
-
+	/**
+	 * [emitAfterSendMessage description]
+	 * @param  \TYPO3\CMS\Core\Mail\MailMessage $message [description]
+	 * @param  int                              $sent    [description]
+	 * @return void                                    [description]
+	 */
+	protected function emitAfterSendMessage (\TYPO3\CMS\Core\Mail\MailMessage $message, $sent){
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'afterSendMessage', array($message, $sent));
 	}
 
 	/**

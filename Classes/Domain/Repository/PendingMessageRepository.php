@@ -32,6 +32,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PendingMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
+	/**
+	 * [$persistenceManager description]
+	 * @var \MONOGON\QueueMailer\Persistence\PersistenceManager
+	 * @inject
+	 */
+	protected $persistenceManager;
+
 	// const STORAGE_PID = 0;
 	protected $defaultOrderings = array(
 		'crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING

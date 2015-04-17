@@ -34,6 +34,13 @@ use MONOGON\QueueMailer\Utility\Converter;
 class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
+	 * [$persistenceManager description]
+	 * @var \MONOGON\QueueMailer\Persistence\PersistenceManager
+	 * @inject
+	 */
+	protected $persistenceManager;
+
+	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
 	 * @inject
 	 */
@@ -69,7 +76,7 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		// $frameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($frameworkConfiguration); exit;
 		// exit;
-		$pid = $GLOBALS['TSFE']->id;
+		// $pid = $GLOBALS['TSFE']->id;
 		// if (is_callable(array($message, 'getPid')) && $message->getPid()){
 		// 	$pid = $message->getPid();
 		// }

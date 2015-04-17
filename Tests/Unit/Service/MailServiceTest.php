@@ -109,6 +109,8 @@ class MailServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function log (){
+		$sent = 3;
+
 		$messageMock = $this->getMessageMock();
 		$messageMock
 			->expects($this->any())
@@ -118,9 +120,12 @@ class MailServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->mailRepositoryMock
 			->expects($this->once())
 			->method('addMessage')
-			->with($this->identicalTo($messageMock));
+			->with(
+				$this->identicalTo($messageMock),
+				$this->identicalTo($sent)
+			);
 
-		$this->subject->log($messageMock);
+		$this->subject->log($messageMock, $sent);
 	}
 
 

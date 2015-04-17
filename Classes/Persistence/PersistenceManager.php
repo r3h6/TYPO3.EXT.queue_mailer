@@ -1,5 +1,5 @@
 <?php
-namespace MONOGON\QueueMailer\Utility;
+namespace MONOGON\QueueMailer\Persistence;
 
 /***************************************************************
  *
@@ -26,28 +26,11 @@ namespace MONOGON\QueueMailer\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * MailUtility
+ * PersistenceManager
  */
-class MailUtility {
+class PersistenceManager extends \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager {
 
-
-	protected static $instance;
-
-	public static function getInstance (){
-		if (!static::$instance){
-			static::$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')->get('MONOGON\\QueueMailer\\Service\\MailService');
-		}
-		return static::$instance;
-	}
-
-	public static function __callStatic($method, $args){
-
-		$instance = static::getInstance();
-
-		return call_user_func_array(array($instance, $method), $args);
-	}
 
 }

@@ -48,6 +48,12 @@ class MailerMock extends \MONOGON\QueueMailer\Mail\Mailer {
 	protected $mailSettings = array(
 		'transport' => 'MONOGON\\QueueMailer\\Tests\\Unit\\Mail\\TransportMock'
 	);
+
+	public $mailServiceMock = NULL;
+
+	protected function getMailService(){
+		return $this->mailServiceMock;
+	}
 }
 
 /**
@@ -64,8 +70,6 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	protected $subject = NULL;
 
-	protected $mailServiceMock;
-
 	protected $transportMock;
 
 	protected $extConf = NULL;
@@ -73,9 +77,14 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	protected function setUp() {
 		$this->subject = new MailerMock();
 
-		$this->mailServiceMock = $this->getMock('MONOGON\\QueueMailer\\Service\\MailService', array('send', 'queue', 'log'), array(), '', FALSE);
+		//$this->subject = $this->getMock('MailerMock', array('getMailService'), array(), '', TRUE);
 
-		MailUtility::setMockInstance($this->mailServiceMock);
+		$this->subject->mailServiceMock = $this->getMock('MONOGON\\QueueMailer\\Service\\MailService', array('send', 'queue', 'log'), array(), '', FALSE);
+		//$this->inject($this->subject)
+		//MailUtility::setMockInstance($this->subject->mailServiceMock);
+
+		// $this->subject->method('getMailService')
+		// ->will($this->returnValue($this->subject->mailServiceMock));
 
 		$this->extConf = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][ExtConf::EXT_KEY];
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][ExtConf::EXT_KEY] = serialize(array(
@@ -89,7 +98,6 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		unset(
 			$this->subject,
 			$this->extConf,
-			$this->mailServiceMock,
 			$this->transportMock
 		);
 	}
@@ -130,10 +138,10 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		// 	)
 		// 	->will($this->returnValue(5));
 
-		$this->mailServiceMock
+		$this->subject->mailServiceMock
 			->expects($this->once())
 			->method('log')
-			->with($message);
+			->with($this->identicalTo($message));
 
 		$this->assertEquals(
 			TransportMock::SEND_RETURN_VALUE,
@@ -153,7 +161,7 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		// 	->expects($this->never())
 		// 	->method('send');
 
-		$this->mailServiceMock
+		$this->subject->mailServiceMock
 			->expects($this->once())
 			->method('queue')
 			->with($this->identicalTo($message))
@@ -183,13 +191,10 @@ class MailerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		// 	->will($this->returnValue(7));
 
 
-		$this->mailServiceMock
+		$this->subject->mailServiceMock
 			->expects($this->once())
 			->method('log')
-			->with(
-				$this->identicalTo($message),
-				$this->identicalTo(TransportMock::SEND_RETURN_VALUE)
-			);
+			->with($this->identicalTo($message));
 
 		$this->assertEquals(
 			TransportMock::SEND_RETURN_VALUE,
