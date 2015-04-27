@@ -49,8 +49,9 @@ class Mailer extends \TYPO3\CMS\Core\Mail\Mailer {
 			return $this->queue($message) ? 1: 0;
 		}
 
+		$this->emitBeforeSendMessage($message);
+
 		try {
-			$this->emitBeforeSendMessage($message);
 			$sent = parent::send($message, $failedRecipients);
 		} catch (Exception $exception){
 			$sent = 0;

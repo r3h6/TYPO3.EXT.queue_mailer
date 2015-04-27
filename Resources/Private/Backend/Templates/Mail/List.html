@@ -1,61 +1,57 @@
 
 <f:layout name="Default" />
 
-This Template is responsible for creating a table of domain objects.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        List.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="content">
 <h1>Listing for Mail</h1>
 
 <f:flashMessages />
 
-<table  class="tx_queuemailer" >
-	<tr>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_subject" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_to" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_cc" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_bcc" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_from" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_reply_to" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_message" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.mail_date" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.failed_recipients" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.sent" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.variables" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.variables_key_hash" /></th>
-		<th><f:translate key="tx_queuemailer_domain_model_mail.is_dummy_record" /></th>
-		<th> </th>
-		<th> </th>
-	</tr>
+<f:form action="list" object="{demand}" name="demand">
+  <div class="hidden">
+    <f:form.hidden property="pid" />
+  </div>
+  <div class="form-group">
+    <f:form.select property="depth" options="{
+      0: 0,
+      1: 1,
+      2: 2,
+      3: 3,
+      -1: 'infinit'
+    }" />
+  </div>
+  <div class="form-group">
+    <label for="search">search</label>
+    <f:form.textfield property="search" title="search" />
+  </div>
+  <div class="form-group">
+    <label for="recipients">Recipients</label>
+    <f:form.textfield property="recipients" title="recipients" />
+  </div>
+  <div class="form-group">
+    <label for="sender">sender</label>
+    <f:form.textfield property="sender" title="sender" />
+  </div>
+  <div class="form-group">
+    <label for="message">message</label>
+    <f:form.textfield property="message" title="message" />
+  </div>
+  <div class="form-group">
+    <label for="variablesKeyHash">variablesKeyHash</label>
+    <f:form.select property="variablesKeyHash" options="{hashes}" prependOptionLabel="" prependOptionValue="" />
+  </div>
 
-	<f:for each="{mails}" as="mail">
-		<tr>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailSubject}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailTo}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailCc}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailBcc}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailFrom}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailReplyTo}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailMessage}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.mailDate -> f:format.date()}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.failedRecipients}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.sent}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.variables}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.variablesKeyHash}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{mail : mail}"> {mail.isDummyRecord}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{mail : mail}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{mail : mail}">Delete</f:link.action></td>
-		</tr>
-	</f:for>
-</table>
+  <div class="form-group">
+    <label><f:form.radio property="sent" value="1" /> Success</label>
+    <label><f:form.radio property="sent" value="0" /> Failure</label>
+  </div>
+  <div class="form-group">
+    <label><f:form.radio property="failedRecipients" value="0" /> None</label>
+    <label><f:form.radio property="failedRecipients" value="1" /> Yes</label>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-default">Filter</button>
+  </div>
+</f:form>
 
-<f:link.action action="new">New Mail</f:link.action>
 </f:section>

@@ -10,12 +10,12 @@ if (TYPO3_MODE === 'BE') {
 	 */
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
 		'MONOGON.' . $_EXTKEY,
-		'user',	 // Make module a submodule of 'user'
+		'web',	 // Make module a submodule of 'web'
 		'mail',	// Submodule key
 		'',						// Position
 		array(
 			'Mail' => 'list',
-
+			
 		),
 		array(
 			'access' => 'user,group',

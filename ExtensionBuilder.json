@@ -310,7 +310,7 @@
                 },
                 "description": "Search, view and export sent mails.",
                 "key": "mail",
-                "mainModule": "user",
+                "mainModule": "web",
                 "name": "Mail",
                 "tabLabel": "Mail"
             }
@@ -358,7 +358,7 @@
         }
     ],
     "log": {
-        "last_modified": "2015-04-17 11:23",
+        "last_modified": "2015-04-27 10:13",
         "extension_builder_version": "6.2.0",
         "be_user": " (1)"
     }

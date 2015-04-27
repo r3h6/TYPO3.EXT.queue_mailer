@@ -88,19 +88,19 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $variablesKeyHash = '';
 
 	/**
+	 * Source
+	 *
+	 * @var string
+	 */
+	protected $source = '';
+
+	/**
 	 * Attachments
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MONOGON\QueueMailer\Domain\Model\Attachment>
 	 * @cascade remove
 	 */
 	protected $attachments = NULL;
-
-	/**
-	 * Source
-	 *
-	 * @var string
-	 */
-	protected $source = '';
 
 	/**
 	 * __construct

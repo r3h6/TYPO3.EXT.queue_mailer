@@ -95,4 +95,38 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $mail->getUid() !== NULL;
 	}
 
+	public function findDemanded (\MONOGON\QueueMailer\Domain\Model\Dto\MailDemand $demand = NULL){
+		if ($demand === NULL){
+			return NULL;
+		}
+
+		$query = $this->createQuery();
+
+
+		return $query->execute();
+	}
+
+	public function findVariablesKeyHashes (\MONOGON\QueueMailer\Domain\Model\Dto\MailDemand $demand = NULL){
+		$query = $this->createQuery();
+
+		$pageIds = array($demand->getPid());
+
+		$query->statement("SELECT
+				variables_key_hash
+			FROM
+				tx_queuemailer_domain_model_mail
+			WHERE
+				pid IN (" . join(", ", $pageIds). ")
+			GROUP BY
+				variables_key_hash");
+
+		$data = $query->execute(TRUE);
+		$hashes = array();
+		foreach ($data as $row){
+			$hashes[] = $row['variables_key_hash'];
+		}
+
+		return $hashes;
+	}
+
 }

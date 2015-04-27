@@ -70,7 +70,7 @@ class Converter {
 		$attachment->setSize($entity->getSize());
 
 
-		$attachment->setData($entity->getBody());
+		$attachment->setData($entity->toString());
 		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entity); exit;
 		// $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
 

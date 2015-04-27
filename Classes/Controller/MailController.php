@@ -44,9 +44,21 @@ class MailController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 *
 	 * @return void
 	 */
-	public function listAction() {
-		$mails = $this->mailRepository->findAll();
+	public function listAction(\MONOGON\QueueMailer\Domain\Model\Dto\MailDemand $demand = NULL) {
+
+
+		$mails = $this->mailRepository->findDemanded($demand);
 		$this->view->assign('mails', $mails);
+
+		if ($demand === NULL){
+			$demand = $this->objectManager->get('MONOGON\\QueueMailer\\Domain\\Model\\Dto\\MailDemand');
+			$demand->setPid(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id'));
+		}
+
+		$this->view->assign('hashes', $this->mailRepository->findVariablesKeyHashes($demand));
+
+		$this->view->assign('demand', $demand);
+
 	}
 
 	/**

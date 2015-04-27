@@ -42,7 +42,7 @@ class IncludeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 		$content = '';
 		$file = GeneralUtility::getFileAbsFileName($file);
 		if (file_exists($file)){
-			$content = @file_get_contents($file);
+			$content = file_get_contents($file);
 		}
 		return $content;
 	}
