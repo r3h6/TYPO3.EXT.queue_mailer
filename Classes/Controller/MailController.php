@@ -42,6 +42,7 @@ class MailController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * action list
 	 *
+	 * @param \MONOGON\QueueMailer\Domain\Model\Dto\MailDemand $demand
 	 * @return void
 	 */
 	public function listAction(\MONOGON\QueueMailer\Domain\Model\Dto\MailDemand $demand = NULL) {
@@ -54,11 +55,9 @@ class MailController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$demand = $this->objectManager->get('MONOGON\\QueueMailer\\Domain\\Model\\Dto\\MailDemand');
 			$demand->setPid(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id'));
 		}
-
-		$this->view->assign('hashes', $this->mailRepository->findVariablesKeyHashes($demand));
+		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($demand);
 
 		$this->view->assign('demand', $demand);
-
 	}
 
 	/**

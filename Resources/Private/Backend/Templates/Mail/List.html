@@ -6,12 +6,13 @@
 <h1>Listing for Mail</h1>
 
 <f:flashMessages />
-
 <f:form action="list" object="{demand}" name="demand">
-  <div class="hidden">
+  <div>
     <f:form.hidden property="pid" />
   </div>
+
   <div class="form-group">
+    <f:translate key="mail_demand.depth">Depth</f:translate>
     <f:form.select property="depth" options="{
       0: 0,
       1: 1,
@@ -20,38 +21,67 @@
       -1: 'infinit'
     }" />
   </div>
+
   <div class="form-group">
-    <label for="search">search</label>
+    <label for="search"><f:translate key="mail_demand.search">search</f:translate></label>
     <f:form.textfield property="search" title="search" />
-  </div>
-  <div class="form-group">
-    <label for="recipients">Recipients</label>
-    <f:form.textfield property="recipients" title="recipients" />
-  </div>
-  <div class="form-group">
-    <label for="sender">sender</label>
-    <f:form.textfield property="sender" title="sender" />
-  </div>
-  <div class="form-group">
-    <label for="message">message</label>
-    <f:form.textfield property="message" title="message" />
-  </div>
-  <div class="form-group">
-    <label for="variablesKeyHash">variablesKeyHash</label>
-    <f:form.select property="variablesKeyHash" options="{hashes}" prependOptionLabel="" prependOptionValue="" />
   </div>
 
   <div class="form-group">
-    <label><f:form.radio property="sent" value="1" /> Success</label>
-    <label><f:form.radio property="sent" value="0" /> Failure</label>
+    <label for="subject"><f:translate key="mail_demand.subject">subject</f:translate></label>
+    <f:form.textfield property="subject" title="subject" />
   </div>
+
   <div class="form-group">
-    <label><f:form.radio property="failedRecipients" value="0" /> None</label>
-    <label><f:form.radio property="failedRecipients" value="1" /> Yes</label>
+    <label for="recipients"><f:translate key="mail_demand.recipients">Recipients</f:translate></label>
+    <f:form.textfield property="recipients" title="recipients" />
   </div>
+
+  <div class="form-group">
+    <label for="sender"><f:translate key="mail_demand.sender">sender</f:translate></label>
+    <f:form.textfield property="sender" title="sender" />
+  </div>
+
+  <div class="form-group">
+    <label for="message"><f:translate key="mail_demand.message">message</f:translate></label>
+    <f:form.textfield property="message" title="message" />
+  </div>
+
+  <div class="form-group">
+    <label for="variablesKeyHash"><f:translate key="mail_demand.variables_key_hash">variablesKeyHash</f:translate></label>
+    <f:form.select property="variablesKeyHash" options="{demand.variablesKeyHashOptions}" prependOptionLabel="" prependOptionValue="" />
+  </div>
+
+  <div class="form-group">
+    <label for="sent"><f:translate key="mail_demand.sent">sent</f:translate></label>
+    <f:form.select property="sent" options="{
+      1: '{f:translate(key: \'mail_demand.sent.success\', default: \'success\')}',
+      0: '{f:translate(key: \'mail_demand.sent.failure\', default: \'failure\')}'
+    }" prependOptionLabel="" prependOptionValue="" />
+  </div>
+
+  <div class="form-group">
+    <label for="sent"><f:translate key="mail_demand.failed_recipients">failed recipients</f:translate></label>
+    <f:form.select property="failedRecipients" options="{
+      1: '{f:translate(key: \'mail_demand.failed_recipients.success\', default: \'success\')}',
+      0: '{f:translate(key: \'mail_demand.failed_recipients.failure\', default: \'failure\')}'
+    }" prependOptionLabel="" prependOptionValue="" />
+  </div>
+
   <div class="form-group">
     <button class="btn btn-default">Filter</button>
   </div>
 </f:form>
+
+<table class="table">
+<tbody>
+<f:for each="{mails}" as="mail">
+  <tr>
+    <td>{mail.subject}</td>
+    <td>{mail.recipients}</td>
+  </tr>
+</f:for>
+</tbody>
+</table>
 
 </f:section>

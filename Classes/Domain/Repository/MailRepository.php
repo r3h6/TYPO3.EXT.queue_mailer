@@ -100,8 +100,20 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			return NULL;
 		}
 
+
 		$query = $this->createQuery();
 
+		$querySettings = $query->getQuerySettings();
+
+
+		$pageIds = array($demand->getPid());
+		$querySettings->setStoragePageIds($pageIds);
+
+		$query->setQuerySettings($querySettings);
+
+		if ($demand->getSearch()){
+
+		}
 
 		return $query->execute();
 	}

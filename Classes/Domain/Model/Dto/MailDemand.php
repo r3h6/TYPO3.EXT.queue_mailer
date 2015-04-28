@@ -37,6 +37,14 @@ class MailDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	const FAILED_RECIPIENTS_YES = 1;
 
 	/**
+	 * mailRepository
+	 *
+	 * @var \MONOGON\QueueMailer\Domain\Repository\MailRepository
+	 * @inject
+	 */
+	protected $mailRepository = NULL;
+
+	/**
 	 * Subject
 	 *
 	 * @var string
@@ -301,5 +309,14 @@ class MailDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setDepth($depth){
 		$this->depth = $depth;
 		return $this;
+	}
+
+	public function getVariablesKeyHashOptions (){
+		$options = array();
+		$hashes = $this->mailRepository->findVariablesKeyHashes($this);
+		foreach ($hashes as $hash){
+			$options[$hash] = \MONOGON\QueueMailer\Utility\LocalizationUtility::translate($hash);
+		}
+		return $options;
 	}
 }
